@@ -10,6 +10,13 @@ const builds = await Bun.build({
 
 const indexFile = Bun.file('index.html');
 
+// import GraphQL handler and schema
+import { createHandler } from 'graphql-http/lib/use/fetch';
+import { testSchema, schema } from './server/schema';
+
+// create the graphql over HTTP native fetch handledr
+const handler = createHandler({ schema: schema });
+
 const server = Bun.serve({
   port: 8080,
   fetch: async (req, server) => {
@@ -21,6 +28,11 @@ const server = Bun.serve({
           'Content-Type': builds.outputs[0].type,
         },
       });
+    }
+
+    // serve on /graphql using the handler
+    if (pathname === '/graphql') {
+      return handler(req);
     }
 
     if (pathname === '/' && req.method === 'GET') {
@@ -43,3 +55,33 @@ const server = Bun.serve({
 });
 
 console.log(`Listening on ${server.hostname}:${server.port}`);
+
+// Create a fake GraphQL client to send query and log result
+import { createClient } from 'graphql-http';
+
+const client = createClient({
+  url: 'http://localhost:8080/graphql',
+});
+
+(async () => {
+  let cancel = () => {
+    // abort the request if it is in-flight
+  };
+
+  const result = await new Promise((resolve, reject) => {
+    let result;
+    cancel = client.subscribe(
+      {
+        // query: '{ hello }',
+        query: '{ users }',
+        operationName: 'query',
+      },
+      {
+        next: (data) => (result = data),
+        error: reject,
+        complete: () => resolve(result),
+      }
+    );
+  });
+  console.log(result);
+})();
