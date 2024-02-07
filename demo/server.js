@@ -74,7 +74,7 @@ const client = createClient({
       {
         // query: '{ hello }',
         query: '{ users }',
-        operationName: "query"
+        operationName: 'query',
       },
       {
         next: (data) => (result = data),
