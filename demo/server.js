@@ -1,3 +1,8 @@
+import lightningcss from 'bun-lightningcss';
+// import GraphQL handler and schema
+import {createHandler} from 'graphql-http/lib/use/fetch';
+import {schema} from './server/schema';
+
 const builds = await Bun.build({
   entrypoints: ['./main.jsx'],
   target: 'browser',
@@ -6,21 +11,18 @@ const builds = await Bun.build({
     syntax: true,
     whitespace: true,
   },
+  plugins: [lightningcss()],
 });
 
 const indexFile = Bun.file('index.html');
 
-// import GraphQL handler and schema
-import { createHandler } from 'graphql-http/lib/use/fetch';
-import { schema } from './server/schema';
-
 // create the graphql over HTTP native fetch handledr
-const handler = createHandler({ schema });
+const handler = createHandler({schema});
 
 const server = Bun.serve({
   port: 8080,
   fetch: async (req, server) => {
-    const { pathname } = new URL(req.url);
+    const {pathname} = new URL(req.url);
 
     if (pathname === '/main.js' && req.method === 'GET') {
       return new Response(builds.outputs[0].stream(), {
@@ -50,7 +52,7 @@ const server = Bun.serve({
       });
     }
 
-    return new Response('Not Found', { status: 404 });
+    return new Response('Not Found', {status: 404});
   },
 });
 
