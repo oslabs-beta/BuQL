@@ -12,10 +12,10 @@ const indexFile = Bun.file('index.html');
 
 // import GraphQL handler and schema
 import { createHandler } from 'graphql-http/lib/use/fetch';
-import { testSchema, schema } from './server/schema';
+import { schema } from './server/schema';
 
 // create the graphql over HTTP native fetch handledr
-const handler = createHandler({ schema: schema });
+const handler = createHandler({ schema });
 
 const server = Bun.serve({
   port: 8080,
@@ -57,31 +57,30 @@ const server = Bun.serve({
 console.log(`Listening on ${server.hostname}:${server.port}`);
 
 // Create a fake GraphQL client to send query and log result
-import { createClient } from 'graphql-http';
+// import { createClient } from 'graphql-http';
 
-const client = createClient({
-  url: 'http://localhost:8080/graphql',
-});
+// const client = createClient({
+//   url: 'http://localhost:8080/graphql',
+// });
 
-(async () => {
-  let cancel = () => {
-    // abort the request if it is in-flight
-  };
+// (async () => {
+//   let cancel = () => {
+//     // abort the request if it is in-flight
+//   };
 
-  const result = await new Promise((resolve, reject) => {
-    let result;
-    cancel = client.subscribe(
-      {
-        // query: '{ hello }',
-        query: '{ users }',
-        operationName: 'query',
-      },
-      {
-        next: (data) => (result = data),
-        error: reject,
-        complete: () => resolve(result),
-      }
-    );
-  });
-  console.log(result);
-})();
+//   const result = await new Promise((resolve, reject) => {
+//     let result;
+//     cancel = client.subscribe(
+//       {
+//         query: '{ getAllUsers { id username password } }',
+//         // mutation: '{ createUser(username: "testuser", password: "12345") { id username password } }',
+//       },
+//       {
+//         next: (data) => (result = data),
+//         error: reject,
+//         complete: () => resolve(result),
+//       }
+//     );
+//   });
+//   console.log('Client Result: ', result);
+// })();

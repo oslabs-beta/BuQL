@@ -5,7 +5,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const uri = Bun.env.MONGO;
 
-mongoose.connect(uri).then(() => console.log('DB connected.'));
+await mongoose.connect(uri).then(() => console.log('DB connected.'));
 
 // define schema
 const userSchema = new mongoose.Schema({
