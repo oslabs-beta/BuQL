@@ -21,6 +21,7 @@ app.use(express.json());
 import buqlController from './controllers/buqlController';
 
 // Route to Buql to check if it's in the cache
+// send query string on post request to req.body.query
 app.use('/buql', buqlController, (req, res) => {
   return res.status(202).json({ message: 'buql up!' });
 });
