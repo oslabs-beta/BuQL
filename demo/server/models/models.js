@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 
 // connect to mongoose
-const ObjectId = mongoose.Types.ObjectId;
-
 const uri = Bun.env.MONGO;
 
 await mongoose.connect(uri).then(() => console.log('DB connected.'));

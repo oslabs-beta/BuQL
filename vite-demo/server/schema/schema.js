@@ -5,11 +5,11 @@ import {
   GraphQLNonNull,
   GraphQLList,
   GraphQLID,
+  graphql,
 } from 'graphql';
-import { graphql } from 'graphql';
 
 // Import data model for users
-import { User } from './models';
+import { User } from '../models/models';
 
 // Create user-defined data types for GraphQL
 const UserType = new GraphQLObjectType({
@@ -69,33 +69,15 @@ export const schema = new GraphQLSchema({
   mutation: Mutation,
 });
 
-const source = 'query { getAllUsers { id username password } hello }';
-graphql({ schema, source }).then((result) => {
-  console.log('result: ', result);
-});
+// const source = 'query { getAllUsers { id username password } hello }';
+// graphql({ schema, source }).then((data) => {
+//   // console.log(data);
+// });
 
 // TODO -> figure out mutations
 
 // const source1 = 'mutation { createUser(username: "testuser", password: "12345") { UserType { id username password } } }';
-// `mutation {
-//   createUser(username: "testuser", password: "12345") {
-//     id
-//     username
-//     password
-//   }
-// }`
-// `mutation {
-//   createUser(username: "testuser", password: "12345") {
-//     UserType {
-//       id
-//       username
-//       password
-//     }
-//   }
-// }`
-
 
 // graphql({ schema, source1 }).then((result) => {
 //   console.log('result: ', result);
 // });
-// mutation: '{ createUser(username: "testuser", password: "12345") { id username password } }',
