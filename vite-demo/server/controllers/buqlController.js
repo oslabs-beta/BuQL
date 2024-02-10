@@ -4,33 +4,39 @@ import { schema } from '../schema/schema';
 import { graphql } from 'graphql';
 
 const buqlController = async (req, res, next) => {
-  // main application logic
-  // check if it's in the cache
-  // if it isn't, redirect to /graphql route
-  // if it is, respond with cached data
+  try {
+    // main application logic
+    // check if it's in the cache
+    // if it isn't, redirect to /graphql route
+    // if it is, respond with cached data
 
-  //
-  const source = 'query { getAllUsers { id username password } hello }';
-  graphql({ schema, source }).then((data) => {
-    console.log('data: ', data);
-  });
+    // send mock graphql response
+    const source = 'query { getAllUsers { id username password } hello }';
+    const response = await graphql({ schema, source });
 
-  // figure out storage for the query string and its data
+    // convert
 
-  // TODO -> figure out mutations
+    // convert query response to a string for storage
+    const strRes = await JSON.stringify(response);
 
-  // const source1 = 'mutation { createUser(username: "testuser", password: "12345") { UserType { id username password } } }';
+    // set redis key = query string, value = query reponse string
+    await redis.set(
+      'query { getAllUsers { id username password } hello }',
+      strRes
+    );
 
-  // graphql({ schema, source1 }).then((result) => {
-  //   console.log('result: ', result);
-  // });
+    // retrieve stored query from redis, receiving a string
+    const result = await redis.get(
+      'query { getAllUsers { id username password } hello }'
+    );
 
-  await redis.set('key', 'value');
-  const result = await redis.get('key');
+    // convert string back to JSON to send to client
+    const jsonResult = JSON.parse(result);
 
-  console.log('result: ', result);
-
-  return next();
+    return next();
+  } catch (error) {
+    console.log('Error in BuQLController', error);
+  }
 };
 
 export default buqlController;
