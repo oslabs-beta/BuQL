@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import {useState} from 'react';
 import './App.css';
 
 function App() {
@@ -8,7 +6,9 @@ function App() {
 
   return (
     <>
-      <h1>BuQL Demo</h1>
+      <div id='header'>
+        <h1>BuQL Demo</h1>
+      </div>
       <div className='card'>
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -16,6 +16,9 @@ function App() {
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
+      </div>
+      <div id='footer'>
+        <h2>By J, J, J & DC</h2>
       </div>
     </>
   );

@@ -40,3 +40,35 @@
 .read-the-docs {
   color: #888;
 }
+
+#header {
+  top: 0px;
+  position: fixed;
+  text-align: center;
+  border-bottom: 2px solid pink;
+}
+
+#footer {
+  bottom: 0px;
+  position: fixed;
+  border-top: 2px solid pink;
+}
+
+#header,
+#footer {
+  margin: 0;
+  left: 0;
+  background-color: rgb(55, 55, 55);
+  width: 100%;
+  height: 60px;
+  justify-content: center;
+  align-content: center;
+  display: flex;
+}
+
+#header h1,
+#footer h2 {
+  margin: 0;
+  line-height: 60px;
+  color: blanchedalmond;
+}
