@@ -1,0 +1,37 @@
+#queryform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
+#querycontainer {
+  display: flex;
+  flex-direction: row;
+}
+
+#queryselector,
+#queryresponse {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+#queryselector select,
+#queryresponse label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+#queryselector code,
+#queryresponse code {
+  width: 400px;
+  height: 200px;
+  background-color: rgb(25, 25, 25);
+  border-radius: 3px;
+  border: 1px solid pink;
+  font-size: 14px;
+}
+#queryform button {
+  margin-top: 20px; /* Add some space between the divs and the button */
+}
