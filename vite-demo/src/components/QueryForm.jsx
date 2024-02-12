@@ -2,18 +2,34 @@ import {useState} from 'react';
 import './QueryForm.css';
 import queries from './Queries.js';
 import ReactJson from 'react-json-pretty'; // Import ReactJson
+import BarChart from './BarChart';
+import { UserData } from "./testData";
+
 
 function QueryForm() {
+  
   // state variable that keeps track of the query that's currently selected in the demo
   const [selectedQuery, setSelectedQuery] = useState('');
+  
   // state variable that contains the query response
   const [queryResponse, setQueryResponse] = useState('');
+  
+  // state variable that updates the bar chart
+  const [userData, setUserData] = useState({
+    labels: UserData.map((data) => data.fName), //name for each bar...
+    datasets: [{
+      label: "Nothing", //will need to be labeled correctly
+      data: UserData.map((data) => data.age), //will need to be correct data
+      backgroundColor: ["pink", "beige"], //need to have a color or 'cached' vs 'database' 
+    }] 
+  });
 
   // grab pre-written example queries
 
   // update state when a query is selected
   const handleQueryChange = (event) => {
     setSelectedQuery(event.target.value);
+    setUserData(userData); // figure out logic for updating state of bar chart
   };
 
   const handleButtonClick = async () => {
@@ -97,6 +113,12 @@ function QueryForm() {
           <br />
           <ReactJson data={queryResponse} />
           {/* <code>{JSON.stringify(queryResponse)}</code> */}
+        </div>
+        <div id='barchart'>
+          <label> Bar Chart </label>
+          <br />
+          {/* renders the bar chart */}
+          <BarChart chartData={{ labels: UserData.map(data => data.fName), datasets: [{ data: UserData.map(data => data.age) }] }} />
         </div>
       </div>
       <button onClick={handleButtonClick}>Send Query</button>
