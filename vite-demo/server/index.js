@@ -6,6 +6,7 @@ const port = 8080;
 
 // import graphql and schema
 import { graphqlHTTP } from 'express-graphql';
+import depthLimit from 'graphql-depth-limit'
 import { schema } from './schema/schema';
 
 // configure cors, json parsing, url encoding
@@ -41,7 +42,11 @@ app.use('/clearCache', buqlController.clearCache, (req, res) => {
 });
 
 // Standalone graphql route
-app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
+app.use('/graphql', graphqlHTTP({ 
+  schema, 
+  graphiql: true,
+  validationRules: [depthLimit(10)]
+}));
 
 app.get('/', (req, res) => {
   return res.status(200).json({ BuQL: 'up!' });
