@@ -7,36 +7,59 @@ const buqlController = {};
 
 // send mock graphql response
 // const source = 'query { getAllUsers { id username password } hello }';
+// const source2 = JSON.parse(source);
 // const response = await graphql({ schema, source });
 
 buqlController.checkCache = async (req, res, next) => {
   try {
-    // if query is in cache, set res.locals.cached === true and res.locals.response === response
-    // if query isn't in cache, set res.locals.cached === false
-    
     // destructure from req.body
     const { query } = req.body;
-    console.log(query);
 
-    // check if query exists in redis cache
+    // check if query exists in redis cache; result is stringified by default
     const result = await redis.get(query);
     if (result) {
+      // if query exists, return response
+      console.log('returning from the cache');
       const objResult = await JSON.parse(result);
-      res.locals.response = objResult;
-      res.locals.cached = true;
-      return next();
+      return res.json({ source: 'cache', response: objResult });
     } else {
-      res.locals.cached = false;
+      // else, move to next middleware
       return next();
     }
-  } catch (error) {
-    console.log('Error in BuQLController', error);
+  } catch (err) {
+    console.log('Error in BuQLController', err);
+    return next(err);
   }
 };
 
 buqlController.addCache = async (req, res, next) => {
-  //
-  console.log('in buqlController');
+  // send query, add stringified response to cache, and return json response
+  const { query } = req.body;
+
+  // send query to graphql route
+  console.log('querying the database');
+  const data = await fetch('http://localhost:8080/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query: query }),
+  });
+  const parsed = await data.json();
+  const string = await JSON.stringify(parsed);
+
+  // save to redis cache
+  await redis.set(query, string);
+  console.log('saved to cache');
+
+  // return response
+  return res.json({ source: 'database', response: parsed });
+};
+
+buqlController.clearCache = async (req, res, next) => {
+  // clear the cache
+  await redis.flushall();
+  console.log('cache cleared');
   return next();
 };
 

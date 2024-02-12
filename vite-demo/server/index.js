@@ -21,16 +21,23 @@ app.use(express.json());
 import buqlController from './controllers/buqlController';
 
 // Route to Buql to check if it's in the cache
-// send query string on post request to req.body.query
-app.use('/buql', buqlController.checkCache, (req, res) => {
-  if (res.locals.cached === true)
-    return res.json({ source: 'cache', response: res.locals.response });
-  else return res.status(200).redirect('/buqlQuery');
-});
+app.use(
+  '/buql',
+  buqlController.checkCache,
+  buqlController.addCache,
+  (req, res) => {
+    return res.status(206).send('hello');
+  }
+);
 
 // Forward request to this middleware if not in cache
 app.use('/buqlQuery', buqlController.addCache, (req, res) => {
   return res.status(202).json({ message: 'successfully buqled' });
+});
+
+// Clear cache route
+app.use('/clearCache', buqlController.clearCache, (req, res) => {
+  return res.status(205).send('cache cleared!');
 });
 
 // Standalone graphql route
