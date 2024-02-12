@@ -1,42 +1,43 @@
 // import ioredis
 import redis from './redis';
-import { schema } from '../schema/schema';
-import { graphql } from 'graphql';
+// import { schema } from '../schema/schema';
+// import { graphql } from 'graphql';
 
-const buqlController = async (req, res, next) => {
+const buqlController = {};
+
+// send mock graphql response
+// const source = 'query { getAllUsers { id username password } hello }';
+// const response = await graphql({ schema, source });
+
+buqlController.checkCache = async (req, res, next) => {
   try {
-    // main application logic
-    // check if it's in the cache
-    // if it isn't, redirect to /graphql route
-    // if it is, respond with cached data
+    // if query is in cache, set res.locals.cached === true and res.locals.response === response
+    // if query isn't in cache, set res.locals.cached === false
+    
+    // destructure from req.body
+    const { query } = req.body;
+    console.log(query);
 
-    // send mock graphql response
-    const source = 'query { getAllUsers { id username password } hello }';
-    const response = await graphql({ schema, source });
-
-    // convert
-
-    // convert query response to a string for storage
-    const strRes = await JSON.stringify(response);
-
-    // set redis key = query string, value = query reponse string
-    await redis.set(
-      'query { getAllUsers { id username password } hello }',
-      strRes
-    );
-
-    // retrieve stored query from redis, receiving a string
-    const result = await redis.get(
-      'query { getAllUsers { id username password } hello }'
-    );
-
-    // convert string back to JSON to send to client
-    const jsonResult = JSON.parse(result);
-
-    return next();
+    // check if query exists in redis cache
+    const result = await redis.get(query);
+    if (result) {
+      const objResult = await JSON.parse(result);
+      res.locals.response = objResult;
+      res.locals.cached = true;
+      return next();
+    } else {
+      res.locals.cached = false;
+      return next();
+    }
   } catch (error) {
     console.log('Error in BuQLController', error);
   }
+};
+
+buqlController.addCache = async (req, res, next) => {
+  //
+  console.log('in buqlController');
+  return next();
 };
 
 export default buqlController;

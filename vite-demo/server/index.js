@@ -22,15 +22,22 @@ import buqlController from './controllers/buqlController';
 
 // Route to Buql to check if it's in the cache
 // send query string on post request to req.body.query
-app.use('/buql', buqlController, (req, res) => {
-  return res.status(202).json({ message: 'buql up!' });
+app.use('/buql', buqlController.checkCache, (req, res) => {
+  if (res.locals.cached === true)
+    return res.json({ source: 'cache', response: res.locals.response });
+  else return res.status(200).redirect('/buqlQuery');
 });
 
 // Forward request to this middleware if not in cache
-app.use('/graphql', graphqlHTTP({ schema }));
+app.use('/buqlQuery', buqlController.addCache, (req, res) => {
+  return res.status(202).json({ message: 'successfully buqled' });
+});
+
+// Standalone graphql route
+app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
 
 app.get('/', (req, res) => {
-  return res.status(200).json({ message: 'hello!' });
+  return res.status(200).json({ BuQL: 'up!' });
 });
 
 app.use('*', (req, res) => res.status(404).send('Page not found'));
