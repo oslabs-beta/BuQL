@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import './QueryForm.css';
+import queries from './Queries.js';
+import ReactJson from 'react-json-pretty'; // Import ReactJson
 
 function QueryForm() {
   // state variable that keeps track of the query that's currently selected in the demo
@@ -7,21 +9,7 @@ function QueryForm() {
   // state variable that contains the query response
   const [queryResponse, setQueryResponse] = useState('');
 
-  // define queries that will be available to choose from in the demo. might put in a different file?
-  const queries = [
-    {
-      label: 'Grab all users with the initial J',
-      code: 'insert query 1 code here',
-    },
-    {
-      label: 'Grab all users with the userId 1',
-      code: 'query { user(userId: 1) { name } }',
-    },
-    {
-      label: 'Grab all posts created after Feb 9th 2024',
-      code: 'insert more code here',
-    },
-  ];
+  // grab pre-written example queries
 
   // update state when a query is selected
   const handleQueryChange = (event) => {
@@ -30,9 +18,60 @@ function QueryForm() {
 
   const handleButtonClick = async () => {
     // send selected query to the backend
+    try {
+      const response = await fetch('http://localhost:8080/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({query: selectedQuery}),
+      });
+      const responseObj = await response.json();
+      if (Object.hasOwn(responseObj, 'errors')) {
+        setQueryResponse(responseObj.errors);
+      } else {
+        setQueryResponse(responseObj.data);
+      }
+      // console.log(responseObj);
+      // console.log(responseObj.data);
+      // setQueryResponse(responseObj);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+    /*
+    const result = await fetch('http://localhost:8080/graphql').then(
+      (data) => {
+        console.log(data);
+        console.log(data.json());
+      }
+    );
+    console.log(result);
+    setQueryResponse(result);
+    /
+
+    /
+    fetch('localhost:8080/buql').then((data) => {
+      console.log(data);
+      console.log(data.json());
+    });
+    /
+
+    // post request to /graphql
+    /fetch('/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({query: selectedQuery}),
+    })
+      .then((response) => response.json())
+      .then((data) => setQueryResponse(data))
+      .catch((error) => console.error('Error:', error));*/
+    console.log(queryResponse);
 
     // update query response state variable
-    setQueryResponse(`${selectedQuery} response here here here`);
+    //setQueryResponse(`${selectedQuery} response here here here`);
   };
 
   // render this form back in App.jsx where it was called
@@ -50,12 +89,14 @@ function QueryForm() {
               </option>
             ))}
           </select>
-          <code>{selectedQuery}</code>
+          {/* <code>{selectedQuery}</code> */}
+          <ReactJson data={selectedQuery} />
         </div>
         <div id='queryresponse'>
           <label>Query Response:</label>
           <br />
-          <code>{queryResponse}</code>
+          <ReactJson data={queryResponse} />
+          {/* <code>{JSON.stringify(queryResponse)}</code> */}
         </div>
       </div>
       <button onClick={handleButtonClick}>Send Query</button>
