@@ -20,6 +20,7 @@ app.use(express.json());
 
 // import controllers
 import buqlController from './controllers/buqlController';
+import securityController from './controllers/securityController';
 
 // Route to Buql to check if it's in the cache
 app.use(
@@ -42,7 +43,7 @@ app.use('/clearCache', buqlController.clearCache, (req, res) => {
 });
 
 // Standalone graphql route
-app.use('/graphql', graphqlHTTP({ 
+app.use('/graphql', securityController.checkChars, graphqlHTTP({ 
   schema, 
   graphiql: true,
   validationRules: [depthLimit(10)]
