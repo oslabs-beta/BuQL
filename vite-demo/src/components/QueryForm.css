@@ -5,7 +5,7 @@
   padding: 50px;
 }
 
-#querycontainer, #queryanalytics {
+#querycontainer {
   display: flex;
   flex-direction: row;
 }
@@ -23,30 +23,15 @@
   font-size: 18px;
   margin-bottom: 5px;
 }
-
-#queryselector pre,
-#queryresponse pre {
-  width: 500px;
-  min-height: 250px;
-  height: auto;
-  max-height: 400px;
+#queryselector code,
+#queryresponse code {
+  width: 400px;
+  height: 200px;
   background-color: rgb(25, 25, 25);
   border-radius: 3px;
   border: 1px solid pink;
   font-size: 14px;
-  text-align: left;
-  padding: 5px;
-  overflow: auto;
 }
-
 #queryform button {
   margin-top: 20px; /* Add some space between the divs and the button */
-}
-
-#barchart, #querytable {
-  width: 500px;
-}
-
-#querytable {
-  overflow: auto;
 }
