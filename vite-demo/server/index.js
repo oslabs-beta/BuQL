@@ -6,7 +6,6 @@ const port = 8080;
 
 // import graphql and schema
 import { graphqlHTTP } from 'express-graphql';
-import depthLimit from 'graphql-depth-limit'
 import { schema } from './schema/schema';
 
 // configure cors, json parsing, url encoding
@@ -20,37 +19,18 @@ app.use(express.json());
 
 // import controllers
 import buqlController from './controllers/buqlController';
-import securityController from './controllers/securityController';
 
 // Route to Buql to check if it's in the cache
-app.use(
-  '/buql',
-  buqlController.checkCache,
-  buqlController.addCache,
-  (req, res) => {
-    return res.status(206).send('hello');
-  }
-);
+// send query string on post request to req.body.query
+app.use('/buql', buqlController, (req, res) => {
+  return res.status(202).json({ message: 'buql up!' });
+});
 
 // Forward request to this middleware if not in cache
-app.use('/buqlQuery', buqlController.addCache, (req, res) => {
-  return res.status(202).json({ message: 'successfully buqled' });
-});
-
-// Clear cache route
-app.use('/clearCache', buqlController.clearCache, (req, res) => {
-  return res.status(205).send('cache cleared!');
-});
-
-// Standalone graphql route
-app.use('/graphql', securityController.checkChars, graphqlHTTP({ 
-  schema, 
-  graphiql: true,
-  validationRules: [depthLimit(10)]
-}));
+app.use('/graphql', graphqlHTTP({ schema }));
 
 app.get('/', (req, res) => {
-  return res.status(200).json({ BuQL: 'up!' });
+  return res.status(200).json({ message: 'hello!' });
 });
 
 app.use('*', (req, res) => res.status(404).send('Page not found'));
