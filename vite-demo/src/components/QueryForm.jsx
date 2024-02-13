@@ -3,7 +3,6 @@ import './QueryForm.css';
 import queries from './Queries.js';
 import ReactJson from 'react-json-pretty'; // Import ReactJson
 import BarChart from './BarChart';
-import {UserData} from './testData';
 import QueryTable from './QueryTable.jsx';
 
 function QueryForm() {
@@ -16,21 +15,11 @@ function QueryForm() {
   // state variable that updates the bar chart
   const [responseTimes, setResponseTimes] = useState([]);
   const [responseCount, setResponseCount] = useState([]);
+  const [responseSources, setResponseSources] = useState([]);
   //const [responseTimes, setResponseTimes] = useState([{}]);
 
   // state variable for table data
   const [tableData, setTableData] = useState([]);
-
-  // test state variable for populating barChart with userdata
-  const [userData, setUserData] = useState([
-    {
-      label: UserData.map((data) => data.fName), //will need to be labeled correctly
-      data: UserData.map((data) => data.age), //will need to be correct data
-      backgroundColor: ['pink', 'beige'], //need to have a color or 'cached' vs 'database'
-    },
-  ]);
-  console.log(userData);
-  // grab pre-written example queries
 
   // update state when a query is selected
   const handleQueryChange = (event) => {
@@ -43,14 +32,22 @@ function QueryForm() {
     query.code = event.target.value;
     console.log('QUERY OBJECT:', query);
     setSelectedQuery(query);
-    //setSelectedQuery(event.target.value);
-    console.log('EVENT TARGET', event.target);
-    setUserData(userData); // figure out logic for updating state of bar chart
   };
 
   const clearCacheClick = async () => {
     // add logic to clear cache
-    console.log('clear!');
+    try {
+      // run the selected through our backend logic
+      const clearResponse = await fetch('http://localhost:8080/clearCache', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      // console.log('clear!');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const sendQueryClick = async () => {
@@ -59,7 +56,11 @@ function QueryForm() {
       // grab timestamp of when the function was invoked
       const timeStart = Date.now();
       // run the selected through our backend logic
-      const response = await fetch('http://localhost:8080/graphql', {
+      // object with 1. source 2. response properties
+      // source = string (database/cache)
+      // response = exact object as before
+
+      const buqlResponse = await fetch('http://localhost:8080/buql', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,11 +68,14 @@ function QueryForm() {
         body: JSON.stringify({query: selectedQuery.code}),
       });
       // grab timestamp of when the function finished
-      const responseObj = await response.json();
+      const responseObj = await buqlResponse.json();
+      const {source, response} = responseObj;
+      setCurrentSource(source);
+
       // calculate the time the function ran for in ms
       const timeEnd = Date.now();
       const newTime = timeEnd - timeStart;
-      console.log(`Execution time: ${newTime} ms`);
+      // console.log(`Execution time: ${newTime} ms`);
 
       const updateCounter = () => {
         //const newTimes = Object.assign(responseTimes);
@@ -80,24 +84,25 @@ function QueryForm() {
         newCount.push(newCount.length + 1);
         console.log(setResponseCount(newCount));
       };
-      updateCounter();
-
-      await setResponseTimes((prevState) => [...prevState, newTime]);
+      //updateCounter();
+      setResponseSources((prevState) => [...prevState, source]);
+      setResponseCount((prevState) => [...prevState, prevState.length + 1]);
+      setResponseTimes((prevState) => [...prevState, newTime]);
       // check if response object is an error object and extract its errors if so
-      if (Object.hasOwn(responseObj, 'errors')) {
-        setQueryResponse(responseObj.errors);
+      if (Object.hasOwn(response, 'errors')) {
+        setQueryResponse(response.errors);
       } // otherwise extract its response data
       else {
-        setQueryResponse(responseObj.data);
+        setQueryResponse(response.data);
       }
 
       // Update tableData with the new query information
       setTableData((prevTableData) => [
         ...prevTableData,
         {
-          id: prevTableData.length + 1,
+          id: prevTableData.length + 1, // DOES THIS NEED EDITING???
           query: selectedQuery.label,
-          source: 'database', // set source to "database" by default for now
+          source: source, //'database', // set source to "database" by default for now
           time: newTime,
         },
       ]);
@@ -121,7 +126,7 @@ function QueryForm() {
   // a button to send the query and a code block for the query response
   return (
     <div id='queryform'>
-      <div id='querycontainer'>
+      <div id='querylabels'>
         <div id='queryselector'>
           <select value={selectedQuery.code} onChange={handleQueryChange}>
             <option value=''>Select a query</option>
@@ -131,24 +136,21 @@ function QueryForm() {
               </option>
             ))}
           </select>
-          {/* <code>{selectedQuery}</code> */}
-          <ReactJson data={selectedQuery.code} />
         </div>
-        <div id='queryresponse'>
-          <label>Query Response:</label>
-          <br />
-          <ReactJson data={queryResponse} />
-          {/* <code>{JSON.stringify(queryResponse)}</code> */}
-        </div>
+        <label>Query Response:</label>
       </div>
-      <button onClick={sendQueryClick}>Send Query</button>
-      <button onClick={clearCacheClick}>Clear Cache</button>
+      <div id='queryboxes'>
+        <ReactJson data={selectedQuery.code} />
+        <ReactJson data={queryResponse} />
+      </div>
+      <div id='querybuttons'>
+        <button onClick={sendQueryClick}>Send Query</button>
+        <button onClick={clearCacheClick}>Clear Cache</button>
+      </div>
       <div id='queryanalytics'>
-        <div id='querytable'>
-          <QueryTable data={tableData} />
-        </div>
+        <QueryTable data={tableData} />
         <div id='barchart'>
-          <label> Bar Chart </label>
+          <label>Bar Chart</label>
           <br />
           {/* renders the bar chart */}
           <BarChart
@@ -156,13 +158,30 @@ function QueryForm() {
               labels: responseCount,
               datasets: [
                 {
+                  label: 'Red = Database, Green = Cache', //responseSources, //'Source', //but variable
                   data: responseTimes,
-                  backgroundColor: responseTimes.map((time) =>
-                    time < 15 ? 'green' : 'red'
+                  backgroundColor: responseSources.map((source) =>
+                    source === 'cache' ? 'green' : 'red'
                   ),
                 },
               ],
             }}
+            options={{
+              scales: {
+                y: {
+                  title: {
+                    display: true,
+                    text: 'ms',
+                  },
+                },
+              },
+              plugins: {
+                legend: {
+                  display: false,
+                },
+              },
+            }}
+            style={{legend: {display: 'none'}}}
           />
         </div>
       </div>
