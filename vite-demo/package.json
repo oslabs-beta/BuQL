@@ -22,6 +22,7 @@
     "mongoose": "^8.1.1",
     "path": "^0.12.7",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-json-pretty": "^2.2.0",
     "react-table": "^7.8.0"
