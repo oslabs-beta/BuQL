@@ -2,11 +2,13 @@ import {
   GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
+  GraphQLInt,
   GraphQLNonNull,
   GraphQLList,
   GraphQLID,
-  graphql,
 } from 'graphql';
+
+import mongoose from 'mongoose';
 
 // Import data model for users
 import { User } from '../models/models';
@@ -39,6 +41,13 @@ const RootQuery = new GraphQLObjectType({
         return 'world';
       },
     },
+    goodbye: {
+      type: GraphQLInt,
+      args: { id: { type: GraphQLInt } },
+      resolve: (parent, args) => {
+        return args.id;
+      },
+    },
   },
 });
 
@@ -61,6 +70,17 @@ const Mutation = new GraphQLObjectType({
         return result;
       },
     },
+    deleteUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLString },
+      },
+      async resolve(parents, args, req) {
+        const userId = new mongoose.Types.ObjectId(args.id);
+        const result = await User.findByIdAndDelete(userId);
+        return result;
+      },
+    },
   },
 });
 
@@ -68,16 +88,3 @@ export const schema = new GraphQLSchema({
   query: RootQuery,
   mutation: Mutation,
 });
-
-// const source = 'query { getAllUsers { id username password } hello }';
-// graphql({ schema, source }).then((data) => {
-//   // console.log(data);
-// });
-
-// TODO -> figure out mutations
-
-// const source1 = 'mutation { createUser(username: "testuser", password: "12345") { UserType { id username password } } }';
-
-// graphql({ schema, source1 }).then((result) => {
-//   console.log('result: ', result);
-// });

@@ -1,22 +1,37 @@
 // import ioredis
 import redis from './redis';
-// import { schema } from '../schema/schema';
-// import { graphql } from 'graphql';
 
 const buqlController = {};
-
-// send mock graphql response
-// const source = 'query { getAllUsers { id username password } hello }';
-// const source2 = JSON.parse(source);
-// const response = await graphql({ schema, source });
 
 buqlController.checkCache = async (req, res, next) => {
   try {
     // destructure from req.body
     const { query } = req.body;
 
+    // check if operation type is a mutation
+    if (query.includes('mutation')) {
+      // send query to graphql route
+      console.log('mutating the database');
+      const data = await fetch('http://localhost:8080/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: query }),
+      });
+
+      // clear the redis cache
+      await redis.flushall();
+      console.log('cache cleared');
+
+      // parse and return the response
+      const parsed = await data.json();
+      return res.json({ source: 'mutation', response: parsed });
+    }
+
     // check if query exists in redis cache; result is stringified by default
     const result = await redis.get(query);
+
     if (result) {
       // if query exists, return response
       console.log('returning from the cache');
@@ -27,6 +42,7 @@ buqlController.checkCache = async (req, res, next) => {
       return next();
     }
   } catch (err) {
+    // add a detailed error log
     console.log('Error in BuQLController', err);
     return next(err);
   }
@@ -45,6 +61,8 @@ buqlController.addCache = async (req, res, next) => {
     },
     body: JSON.stringify({ query: query }),
   });
+
+  // convert the response to a string for storage
   const parsed = await data.json();
   const string = await JSON.stringify(parsed);
 
