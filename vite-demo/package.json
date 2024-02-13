@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "bunx --bun vite & bun --hot run ./server/index.js",
+    "backend": "bun --hot run ./server/index.js",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "chart.js": "^4.4.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-graphql": "^0.12.0",
@@ -20,7 +22,9 @@
     "mongoose": "^8.1.1",
     "path": "^0.12.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-json-pretty": "^2.2.0",
+    "react-table": "^7.8.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",
