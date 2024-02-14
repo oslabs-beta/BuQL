@@ -46,6 +46,7 @@ app.use('/clearCache', buqlController.clearCache, (req, res) => {
 app.use('/graphql', securityController.checkChars, graphqlHTTP({ 
   schema, 
   graphiql: true,
+  //look into what other validation rules there are
   validationRules: [depthLimit(10)]
 }));
 
