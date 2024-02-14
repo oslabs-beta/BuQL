@@ -70,7 +70,6 @@ function QueryForm() {
       // grab timestamp of when the function finished
       const responseObj = await buqlResponse.json();
       const {source, response} = responseObj;
-      setCurrentSource(source);
 
       // calculate the time the function ran for in ms
       const timeEnd = Date.now();
