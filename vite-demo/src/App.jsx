@@ -3,8 +3,6 @@ import './App.css';
 import QueryForm from './components/QueryForm';
 
 function App() {
-  //const [count, setCount] = useState(0);
-
   return (
     <>
       <div id='header'>
@@ -14,16 +12,8 @@ function App() {
       <div id='demo'>
         <QueryForm></QueryForm>
       </div>
-      {/* <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div> */}
       <div id='footer'>
-        <h2>By J, J, J & DC</h2>
+        <h2>By Jake Diamond, Julien Kerekes, Joe McGarry and Dylan Compton</h2>
       </div>
     </>
   );
