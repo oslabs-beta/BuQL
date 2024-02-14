@@ -6,23 +6,23 @@ import BarChart from './BarChart';
 import QueryTable from './QueryTable.jsx';
 
 function QueryForm() {
-  // state variable that keeps track of the query that's currently selected in the demo
+  // defining state variables (might refactor to cleaner code later on)
+  // keeping track of the query that's currently selected in the demo
   const [selectedQuery, setSelectedQuery] = useState({});
 
-  // state variable that contains the query response
+  // contains the query response
   const [queryResponse, setQueryResponse] = useState();
 
-  // state variable that updates the bar chart
+  // update the bar chart's information
   const [responseTimes, setResponseTimes] = useState([]);
   const [responseCount, setResponseCount] = useState([]);
   const [responseSources, setResponseSources] = useState([]);
-  //const [responseTimes, setResponseTimes] = useState([{}]);
 
-  // state variable for table data
+  // keep track of the table data
   const [tableData, setTableData] = useState([]);
 
   // update state when a query is selected
-  const handleQueryChange = (event) => {
+  const handleQuerySelector = (event) => {
     const query = {};
     const selectedIndex = event.target.selectedIndex;
     const selectedOption = event.target[selectedIndex];
@@ -30,36 +30,36 @@ function QueryForm() {
 
     query.label = selectedLabel;
     query.code = event.target.value;
-    console.log('QUERY OBJECT:', query);
+    setQueryResponse();
+    //console.log('QUERY OBJECT:', query);
     setSelectedQuery(query);
   };
 
   const clearCacheClick = async () => {
-    // add logic to clear cache
+    // send a request to the /clearCache route that will handle clearing the cache
     try {
-      // run the selected through our backend logic
-      const clearResponse = await fetch('http://localhost:8080/clearCache', {
+      await fetch('http://localhost:8080/clearCache', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      // console.log('clear!');
     } catch (err) {
       console.log(err);
     }
   };
+
+  const clearChartClick = async () => {};
+
+  const clearTableClick = async () => {};
 
   const sendQueryClick = async () => {
     // run the selected query and save the response time
     try {
       // grab timestamp of when the function was invoked
       const timeStart = Date.now();
-      // run the selected through our backend logic
-      // object with 1. source 2. response properties
-      // source = string (database/cache)
-      // response = exact object as before
 
+      // run the selected through our backend logic
       const buqlResponse = await fetch('http://localhost:8080/buql', {
         method: 'POST',
         headers: {
@@ -67,26 +67,22 @@ function QueryForm() {
         },
         body: JSON.stringify({query: selectedQuery.code}),
       });
-      // grab timestamp of when the function finished
       const responseObj = await buqlResponse.json();
-      const {source, response} = responseObj;
 
-      // calculate the time the function ran for in ms
+      // grab timestamp of when the function finished
       const timeEnd = Date.now();
+      // then calculate the time the function ran for in ms
       const newTime = timeEnd - timeStart;
       // console.log(`Execution time: ${newTime} ms`);
 
-      const updateCounter = () => {
-        //const newTimes = Object.assign(responseTimes);
-        const newCount = Object.assign(responseCount);
-        console.log('NEW COUNT', newCount);
-        newCount.push(newCount.length + 1);
-        console.log(setResponseCount(newCount));
-      };
-      //updateCounter();
+      // deconstruct the source string
+      const {source, response} = responseObj;
+
+      // update state variables
       setResponseSources((prevState) => [...prevState, source]);
       setResponseCount((prevState) => [...prevState, prevState.length + 1]);
       setResponseTimes((prevState) => [...prevState, newTime]);
+
       // check if response object is an error object and extract its errors if so
       if (Object.hasOwn(response, 'errors')) {
         setQueryResponse(response.errors);
@@ -116,6 +112,7 @@ function QueryForm() {
         responseCount
       );
     } catch (error) {
+      console.log('Error in sendQueryClick!');
       console.error('Error:', error);
     }
   };
@@ -127,7 +124,7 @@ function QueryForm() {
     <div id='queryform'>
       <div id='querylabels'>
         <div id='queryselector'>
-          <select value={selectedQuery.code} onChange={handleQueryChange}>
+          <select value={selectedQuery.code} onChange={handleQuerySelector}>
             <option value=''>Select a query</option>
             {queries.map((query) => (
               <option key={query.label} value={query.code}>
@@ -143,13 +140,17 @@ function QueryForm() {
         <ReactJson data={queryResponse} />
       </div>
       <div id='querybuttons'>
+        <button onClick={clearTableClick}>Clear Table</button>
+        {/* ^ add functionaliy */}
         <button onClick={sendQueryClick}>Send Query</button>
         <button onClick={clearCacheClick}>Clear Cache</button>
+        <button onClick={clearChartClick}>Clear Chart</button>
+        {/* ^ add functionaliy */}
       </div>
       <div id='queryanalytics'>
         <QueryTable data={tableData} />
         <div id='barchart'>
-          <label>Bar Chart</label>
+          <label>Response Time</label>
           <br />
           {/* renders the bar chart */}
           <BarChart
@@ -165,22 +166,6 @@ function QueryForm() {
                 },
               ],
             }}
-            options={{
-              scales: {
-                y: {
-                  title: {
-                    display: true,
-                    text: 'ms',
-                  },
-                },
-              },
-              plugins: {
-                legend: {
-                  display: false,
-                },
-              },
-            }}
-            style={{legend: {display: 'none'}}}
           />
         </div>
       </div>
