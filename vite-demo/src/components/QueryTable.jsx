@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { useTable } from 'react-table';
+import React, {useState} from 'react';
+import {useTable} from 'react-table';
 
 function QueryTable(props) {
-  const { data } = props;
-
+  const {data} = props;
 
   //data previously:
   /*  const [data, setData] = useState([
@@ -35,35 +34,39 @@ function QueryTable(props) {
     []
   );
 
-  // Step 2: Define table instance using useTable hook
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
+  // reverse data to populate table backwards
+  const reversedData = [...data].reverse();
+  // define table instance using useTable hook
+  const {getTableProps, rows, prepareRow} = useTable({
     columns,
-    data,
+    data: reversedData,
   });
 
-  // Step 3: Render the table
+  // render the table
   return (
-    <div>
+    <div id='querytable'>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
+          <tr>
+            {columns.map((column) => (
+              <th key={column.accessor}>{column.Header}</th>
+            ))}
+          </tr>
         </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map(row => {
-            prepareRow(row)
+        <tbody>
+          {rows.map((row) => {
+            prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+              <tr {...row.getRowProps()} key={row.id}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()} key={cell.column.accessor}>
+                      {cell.render('Cell')}
+                    </td>
+                  );
                 })}
               </tr>
-            )
+            );
           })}
         </tbody>
       </table>
