@@ -6,16 +6,18 @@
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 80%;
   will-change: filter;
   transition: filter 300ms;
+  line-height: 80px;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em blanchedalmond);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em pink);
 }
 
 @keyframes logo-spin {
