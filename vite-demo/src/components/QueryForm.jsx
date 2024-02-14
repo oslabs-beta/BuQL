@@ -29,7 +29,7 @@ function QueryForm() {
     const selectedLabel = selectedOption.textContent;
 
     query.label = selectedLabel;
-    query.code = event.target.value;
+    query.query = event.target.value;
     setQueryResponse();
     //console.log('QUERY OBJECT:', query);
     setSelectedQuery(query);
@@ -49,9 +49,27 @@ function QueryForm() {
     }
   };
 
-  const clearChartClick = async () => {};
+  //functionality for clearing the Response Time Chart
+  const clearChartClick = async () => {
+    try {
+      console.log('Chart has been cleared.');
+      setResponseCount([]);
+      setResponseTimes([]);
+      setResponseSources([]);
+    } catch (err) {
+      console.log('Error clearing chart:', err);
+    }
+  };
 
-  const clearTableClick = async () => {};
+  //functionality for clearing the Query Table
+  const clearTableClick = async () => {
+    try {
+      console.log('Table has been cleared.');
+      setTableData([]);
+    } catch (err) {
+      console.log('Error clearing table:', err);
+    }
+  };
 
   const sendQueryClick = async () => {
     // run the selected query and save the response time
@@ -65,7 +83,7 @@ function QueryForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({query: selectedQuery.code}),
+        body: JSON.stringify({query: selectedQuery.query}),
       });
       const responseObj = await buqlResponse.json();
 
@@ -80,7 +98,7 @@ function QueryForm() {
 
       // update state variables
       setResponseSources((prevState) => [...prevState, source]);
-      setResponseCount((prevState) => [...prevState, prevState.length + 1]);
+
       setResponseTimes((prevState) => [...prevState, newTime]);
 
       // check if response object is an error object and extract its errors if so
@@ -89,6 +107,11 @@ function QueryForm() {
       } // otherwise extract its response data
       else {
         setQueryResponse(response.data);
+      }
+
+      let newId = 1;
+      if (tableData.length !== 0) {
+        newId = tableData[tableData.length - 1].id + 1;
       }
 
       // Update tableData with the new query information
@@ -102,6 +125,7 @@ function QueryForm() {
         },
       ]);
 
+      setResponseCount((prevState) => [...prevState, newId]);
       // console.log(responseObj);
       // console.log(responseObj.data);
 
@@ -124,10 +148,10 @@ function QueryForm() {
     <div id='queryform'>
       <div id='querylabels'>
         <div id='queryselector'>
-          <select value={selectedQuery.code} onChange={handleQuerySelector}>
+          <select value={selectedQuery.query} onChange={handleQuerySelector}>
             <option value=''>Select a query</option>
             {queries.map((query) => (
-              <option key={query.label} value={query.code}>
+              <option key={query.label} value={query.query}>
                 {query.label}
               </option>
             ))}
@@ -136,7 +160,7 @@ function QueryForm() {
         <label>Query Response:</label>
       </div>
       <div id='queryboxes'>
-        <ReactJson data={selectedQuery.code} />
+        <ReactJson data={selectedQuery.query} />
         <ReactJson data={queryResponse} />
       </div>
       <div id='querybuttons'>

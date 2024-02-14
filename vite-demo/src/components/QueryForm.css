@@ -94,9 +94,11 @@
   color: black;
 }
 th {
+
   padding: 8px;
 }
 
 #barchart {
   padding-top: 10px;
+  color: white;
 }
