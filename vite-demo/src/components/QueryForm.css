@@ -28,7 +28,8 @@
   margin-bottom: 30px;
 }
 #queryselector select,
-#querylabels label {
+#querylabels label,
+#barchart label {
   font-size: 18px;
   margin-bottom: 5px;
 }
@@ -96,6 +97,6 @@ th {
   padding: 8px;
 }
 
-/* #barchart {
-  margin-top: 2px;
-} */
+#barchart {
+  padding-top: 10px;
+}
