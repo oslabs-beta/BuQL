@@ -16,7 +16,7 @@ body {
 .logo {
   margin-top: auto;
   margin-bottom: auto;
-  height: 75%;
+  height: 70%;
   will-change: filter;
   transition: filter 300ms;
   line-height: 80px;
