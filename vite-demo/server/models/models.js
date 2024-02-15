@@ -7,8 +7,10 @@ await mongoose.connect(uri).then(() => console.log('DB connected.'));
 
 // define schema
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  password: { type: String, required: true },
+  username: String,
+  email: String,
+  birthdate: Date,
+  registeredAt: Date,
 });
 
 // export schema

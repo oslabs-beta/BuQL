@@ -20,6 +20,8 @@ buqlController.checkCache = async (req, res, next) => {
         body: JSON.stringify({ query: query }),
       });
 
+      // add a check to see if query is valid
+
       // clear the redis cache
       await redis.flushall();
       console.log('cache cleared');
@@ -61,6 +63,8 @@ buqlController.addCache = async (req, res, next) => {
     },
     body: JSON.stringify({ query: query }),
   });
+
+  // add a check to see if query is valid
 
   // convert the response to a string for storage
   const parsed = await data.json();

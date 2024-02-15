@@ -12,6 +12,7 @@ import mongoose from 'mongoose';
 
 // Import data model for users
 import { User } from '../models/models';
+import { addToDb } from '../models/fake';
 
 // Create user-defined data types for GraphQL
 const UserType = new GraphQLObjectType({
@@ -19,7 +20,9 @@ const UserType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLString },
     username: { type: GraphQLString },
-    password: { type: GraphQLString },
+    email: { type: GraphQLString },
+    birthdate: { type: GraphQLString },
+    registeredAt: { type: GraphQLString },
   }),
 });
 
@@ -35,17 +38,13 @@ const RootQuery = new GraphQLObjectType({
         return userList;
       },
     },
-    hello: {
-      type: GraphQLString,
-      resolve: () => {
-        return 'world';
-      },
-    },
-    goodbye: {
-      type: GraphQLInt,
-      args: { id: { type: GraphQLInt } },
-      resolve: (parent, args) => {
-        return args.id;
+    getUserById: {
+      type: UserType,
+      args: { id: { type: GraphQLString } },
+      async resolve(parent, args) {
+        const userId = new mongoose.Types.ObjectId(args.id);
+        const user = await User.findById(userId);
+        return user;
       },
     },
   },
@@ -56,21 +55,18 @@ const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     // User mutations
-    createUser: {
-      type: UserType,
+    addRandomUsers: {
+      type: new GraphQLList(UserType),
       args: {
-        username: { type: GraphQLString },
-        password: { type: GraphQLString },
+        num: { type: GraphQLInt },
       },
       async resolve(parents, args, req) {
-        const result = await User.create({
-          username: args.username,
-          password: args.password,
-        });
-        return result;
+        await addToDb(args.num);
+        const userList = await User.find({});
+        return userList;
       },
     },
-    deleteUser: {
+    deleteById: {
       type: UserType,
       args: {
         id: { type: GraphQLString },
