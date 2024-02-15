@@ -26,7 +26,8 @@ const queries = [
   },
   {
     label: 'Mutation: Create User with name and password',
-    query: 'mutation { createUser (username: "Filip", password: "aGx75C6hz!_2") { id username password } }',
+    query:
+      'mutation { createUser (username: "Filip", password: "aGx75C6hz2!_") { id username password } }',
   },
 ];
 

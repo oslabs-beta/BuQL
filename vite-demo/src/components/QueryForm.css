@@ -7,12 +7,12 @@
 
 #queryanalytics {
   display: flex;
-  gap: 30px;
+  gap: 40px;
 }
 
 #queryselector,
 #querylabels label {
-  width: 500px;
+  width: 650px;
 }
 #querylabels,
 #queryboxes,
@@ -20,7 +20,7 @@
   flex-direction: row;
   display: flex;
   padding: 10px;
-  gap: 30px;
+  gap: 40px;
 }
 
 #querybuttons {
@@ -36,8 +36,8 @@
 
 #querylabels pre,
 #queryboxes pre {
-  width: 500px;
-  height: 300px;
+  width: 650px;
+  height: 350px;
   background-color: rgb(25, 25, 25);
   border-radius: 3px;
   border: 1px solid pink;
@@ -61,9 +61,10 @@
 #querytable {
   border-collapse: collapse;
   width: 800px;
+  height: 462px;
 }
 #querytable table {
-  width: 75%;
+  width: 100%;
   margin-right: 0;
   margin-left: auto;
 }

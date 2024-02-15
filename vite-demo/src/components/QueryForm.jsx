@@ -165,16 +165,14 @@ function QueryForm() {
       </div>
       <div id='querybuttons'>
         <button onClick={clearTableClick}>Clear Table</button>
-        {/* ^ add functionaliy */}
         <button onClick={sendQueryClick}>Send Query</button>
         <button onClick={clearCacheClick}>Clear Cache</button>
         <button onClick={clearChartClick}>Clear Chart</button>
-        {/* ^ add functionaliy */}
       </div>
       <div id='queryanalytics'>
         <QueryTable data={tableData} />
         <div id='barchart'>
-          <label>Response Time</label>
+          <label style={{color: 'white'}}>Response Time</label>
           <br />
           {/* renders the bar chart */}
           <BarChart
@@ -182,11 +180,20 @@ function QueryForm() {
               labels: responseCount,
               datasets: [
                 {
-                  label: 'Red = Database, Green = Cache', //responseSources, //'Source', //but variable
+                  label: 'Red = Database - Green = Cache - Purple: Mutation',
                   data: responseTimes,
-                  backgroundColor: responseSources.map((source) =>
-                    source === 'cache' ? 'green' : 'red'
-                  ),
+                  backgroundColor: responseSources.map((source) => {
+                    switch (source) {
+                      case 'database':
+                        return 'red';
+                      case 'cache':
+                        return 'green';
+                      case 'mutation':
+                        return 'purple';
+                      default:
+                        return 'black';
+                    }
+                  }),
                 },
               ],
             }}
