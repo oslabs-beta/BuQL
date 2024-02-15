@@ -55,14 +55,9 @@ body {
   top: 0px;
   position: fixed;
   text-align: center;
-  border-bottom: 5px solid pink;
+  border-bottom: 5px solid #f077bc;
+  /* was 'pink' */
   gap: 20px;
-}
-
-#footer {
-  bottom: 0px;
-  position: fixed;
-  border-top: 5px solid pink;
 }
 
 #header,
@@ -70,6 +65,7 @@ body {
   margin: 0;
   left: 0;
   background-color: rgb(55, 55, 55);
+  /* background-color: #faefdf; */
   width: 100%;
   height: 80px;
   justify-content: center;
@@ -77,13 +73,18 @@ body {
   display: flex;
 }
 
+#footer {
+  position: absolute;
+  border-top: 5px solid #f077bc;
+  /* was 'pink' */
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
 #header h1,
 #footer h2 {
   margin: 0;
   line-height: 80px;
-  color: blanchedalmond;
-}
-
-#barchart {
-  /* add styles here */
+  /* color: blanchedalmond; */
+  color: #faefdf;
 }

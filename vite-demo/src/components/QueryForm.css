@@ -46,7 +46,7 @@
   height: 350px;
   background-color: rgb(25, 25, 25);
   border-radius: 3px;
-  border: 1px solid pink;
+  border: 2px solid pink;
   font-size: 14px;
   text-align: left;
   padding: 5px;
@@ -84,15 +84,15 @@
 #querytable,
 #barchart {
   width: 800px;
-  height: 450px;
   overflow: auto;
-  border: 1px solid pink;
+  border: 2px solid pink;
   border-radius: 2px;
 }
 
 #barchart {
   padding-top: 10px;
   color: white;
+  height: 450px;
 
   canvas {
     padding: 10px;
