@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <div id='header'>
-        <img className='logo' src='/public/BuQL.png'></img>
+        <img className='logo' src='/BuQL.png'></img>
         <h1>BuQL Demo</h1>
       </div>
       <div id='demo'>
