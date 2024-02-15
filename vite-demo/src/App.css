@@ -71,11 +71,13 @@ body {
   justify-content: center;
   align-content: center;
   display: flex;
+  box-shadow: 0px 0px 20px 1px #f077bc;
 }
 
 #footer {
   position: absolute;
   border-top: 5px solid #f077bc;
+  
   /* was 'pink' */
   margin-top: auto;
   margin-bottom: 0;
@@ -87,4 +89,5 @@ body {
   line-height: 80px;
   /* color: blanchedalmond; */
   color: #faefdf;
+  
 }

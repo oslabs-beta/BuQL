@@ -1,5 +1,6 @@
+
 // We installed 'chart.js', 'react-chartjs-2' for creating our chart
-// It is important to note that without 'chart.js/auto' that chart will NOT render
+// It is important to note that without 'chart.js/auto' that chart will * NOT * render
 
 // import React from 'react';
 
@@ -10,17 +11,17 @@ import {Chart as ChartJS} from 'chart.js/auto';
 const legendItems = [
   {
     text: 'Cache',
-    fillStyle: 'green',
+    fillStyle: '#faefdf', //green
     fontColor: 'white',
   },
   {
     text: 'Partial',
-    fillStyle: 'yellow',
+    fillStyle: 'pink', //yellow
     fontColor: 'white',
   },
   {
     text: 'Database',
-    fillStyle: 'red',
+    fillStyle: '#f077bc', //red
     fontColor: 'white',
   },
   {
@@ -41,18 +42,25 @@ function BarChart({chartData}) {
     plugins: {
       legend: {
         labels: {
+          font:{
+            size: 16,
+          },
+          // creates the labels for the legend
           generateLabels: function () {
             return legendItems;
           },
         },
+        
       },
     },
     scales: {
+      // x-axis styles
       x: {
         ticks: {
           color: 'white', // Font color of the x-axis labels
         },
       },
+      // y-axis styles
       y: {
         ticks: {
           color: 'white', // Font color of the y-axis labels
@@ -60,8 +68,9 @@ function BarChart({chartData}) {
       },
     },
   };
-
+  // Returns the BarChart with its data and styling options
   return <Bar data={chartData} options={options} />;
 }
 
+//exports the BarChart
 export default BarChart;

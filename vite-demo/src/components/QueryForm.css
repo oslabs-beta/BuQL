@@ -26,6 +26,7 @@
   display: flex;
   padding: 10px;
   gap: 40px;
+  
 }
 
 #querybuttons {
@@ -51,6 +52,7 @@
   text-align: left;
   padding: 5px;
   overflow: auto;
+  box-shadow: 0px 0px 5px 1px pink;
 }
 
 #querytable {
@@ -87,6 +89,7 @@
   overflow: auto;
   border: 2px solid pink;
   border-radius: 2px;
+  box-shadow: 0px 0px 5px 1px pink;
 }
 
 #barchart {

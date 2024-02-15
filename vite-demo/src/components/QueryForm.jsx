@@ -27,7 +27,9 @@ function QueryForm() {
 
     query.label = selectedLabel;
     query.query = event.target.value;
+
     setQueryResponse();
+    console.log('Query Selected!');
     //console.log('QUERY OBJECT:', query);
     setSelectedQuery(query);
   };
@@ -141,7 +143,10 @@ function QueryForm() {
       <div id='querylabels'>
         <div id='queryselector'>
           <select value={selectedQuery.query} onChange={handleQuerySelector}>
-            <option value=''>Select a query</option>
+            {/* this makes sure that "Select a query" is showing by default, but not selectable */}
+            <option value='' selected='true' hidden='true'>
+              Select a query
+            </option>
             {queries.map((query) => (
               <option key={query.label} value={query.query}>
                 {query.label}
@@ -177,13 +182,13 @@ function QueryForm() {
                   backgroundColor: responseSources.map((source) => {
                     switch (source) {
                       case 'database':
-                        return 'red';
+                        return '#f077bc';
                       case 'cache':
-                        return 'green';
+                        return '#faefdf'; // bun color
                       case 'mutation':
                         return 'purple';
                       case 'partial':
-                        return 'yellow';
+                        return 'pink'; // buql pink
                       default:
                         return 'black';
                     }
