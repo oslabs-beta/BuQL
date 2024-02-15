@@ -9,15 +9,12 @@ function QueryForm() {
   // defining state variables (might refactor to cleaner code later on)
   // keeping track of the query that's currently selected in the demo
   const [selectedQuery, setSelectedQuery] = useState({});
-
   // contains the query response
   const [queryResponse, setQueryResponse] = useState();
-
   // update the bar chart's information
   const [responseTimes, setResponseTimes] = useState([]);
   const [responseCount, setResponseCount] = useState([]);
   const [responseSources, setResponseSources] = useState([]);
-
   // keep track of the table data
   const [tableData, setTableData] = useState([]);
 
@@ -29,8 +26,10 @@ function QueryForm() {
     const selectedLabel = selectedOption.textContent;
 
     query.label = selectedLabel;
-    query.code = event.target.value;
+    query.query = event.target.value;
+
     setQueryResponse();
+    console.log('Query Selected!');
     //console.log('QUERY OBJECT:', query);
     setSelectedQuery(query);
   };
@@ -49,9 +48,27 @@ function QueryForm() {
     }
   };
 
-  const clearChartClick = async () => {};
+  //functionality for clearing the Response Time Chart
+  const clearChartClick = async () => {
+    try {
+      console.log('Chart has been cleared.');
+      setResponseCount([]);
+      setResponseTimes([]);
+      setResponseSources([]);
+    } catch (err) {
+      console.log('Error clearing chart:', err);
+    }
+  };
 
-  const clearTableClick = async () => {};
+  //functionality for clearing the Query Table
+  const clearTableClick = async () => {
+    try {
+      console.log('Table has been cleared.');
+      setTableData([]);
+    } catch (err) {
+      console.log('Error clearing table:', err);
+    }
+  };
 
   const sendQueryClick = async () => {
     // run the selected query and save the response time
@@ -65,7 +82,7 @@ function QueryForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({query: selectedQuery.code}),
+        body: JSON.stringify({query: selectedQuery.query}),
       });
       const responseObj = await buqlResponse.json();
 
@@ -76,41 +93,41 @@ function QueryForm() {
       // console.log(`Execution time: ${newTime} ms`);
 
       // deconstruct the source string
-      const {source, response} = responseObj;
+      let {source, response} = responseObj;
 
       // update state variables
       setResponseSources((prevState) => [...prevState, source]);
-      setResponseCount((prevState) => [...prevState, prevState.length + 1]);
+
       setResponseTimes((prevState) => [...prevState, newTime]);
 
+      console.log(responseObj);
       // check if response object is an error object and extract its errors if so
       if (Object.hasOwn(response, 'errors')) {
         setQueryResponse(response.errors);
+        source = 'error';
       } // otherwise extract its response data
       else {
         setQueryResponse(response.data);
       }
 
-      // Update tableData with the new query information
+      // generate next id for graph & table
+      let newId = 1;
+      if (tableData.length !== 0) {
+        newId = tableData[tableData.length - 1].id + 1;
+      }
+
+      // update tableData with the new query information
       setTableData((prevTableData) => [
         ...prevTableData,
         {
-          id: prevTableData.length + 1, // DOES THIS NEED EDITING???
+          id: newId, // might need refactoring
           query: selectedQuery.label,
-          source: source, //'database', // set source to "database" by default for now
+          source: source,
           time: newTime,
         },
       ]);
 
-      // console.log(responseObj);
-      // console.log(responseObj.data);
-
-      console.log(
-        'responseTimer:',
-        responseTimes,
-        'responseCount:',
-        responseCount
-      );
+      setResponseCount((prevState) => [...prevState, newId]);
     } catch (error) {
       console.log('Error in sendQueryClick!');
       console.error('Error:', error);
@@ -119,15 +136,19 @@ function QueryForm() {
 
   // render this form back in App.jsx where it was called
   // form includes a select box + a code block for the query
-  // a button to send the query and a code block for the query response
+  // buttons: send query, clear cache, clear table and clear graph
+  // and a table and a graph to showcase the response times of queries
   return (
     <div id='queryform'>
       <div id='querylabels'>
         <div id='queryselector'>
-          <select value={selectedQuery.code} onChange={handleQuerySelector}>
-            <option value=''>Select a query</option>
+          <select value={selectedQuery.query} onChange={handleQuerySelector}>
+            {/* this makes sure that "Select a query" is showing by default, but not selectable */}
+            <option value='' selected='true' hidden='true'>
+              Select a query
+            </option>
             {queries.map((query) => (
-              <option key={query.label} value={query.code}>
+              <option key={query.label} value={query.query}>
                 {query.label}
               </option>
             ))}
@@ -136,21 +157,19 @@ function QueryForm() {
         <label>Query Response:</label>
       </div>
       <div id='queryboxes'>
-        <ReactJson data={selectedQuery.code} />
+        <ReactJson data={selectedQuery.query} />
         <ReactJson data={queryResponse} />
       </div>
       <div id='querybuttons'>
         <button onClick={clearTableClick}>Clear Table</button>
-        {/* ^ add functionaliy */}
         <button onClick={sendQueryClick}>Send Query</button>
         <button onClick={clearCacheClick}>Clear Cache</button>
         <button onClick={clearChartClick}>Clear Chart</button>
-        {/* ^ add functionaliy */}
       </div>
       <div id='queryanalytics'>
         <QueryTable data={tableData} />
         <div id='barchart'>
-          <label>Response Time</label>
+          <label style={{color: 'white'}}>Response Time</label>
           <br />
           {/* renders the bar chart */}
           <BarChart
@@ -158,11 +177,22 @@ function QueryForm() {
               labels: responseCount,
               datasets: [
                 {
-                  label: 'Red = Database, Green = Cache', //responseSources, //'Source', //but variable
                   data: responseTimes,
-                  backgroundColor: responseSources.map((source) =>
-                    source === 'cache' ? 'green' : 'red'
-                  ),
+                  // assign each row of data a color based on its source from the backend
+                  backgroundColor: responseSources.map((source) => {
+                    switch (source) {
+                      case 'database':
+                        return '#f077bc';
+                      case 'cache':
+                        return '#faefdf'; // bun color
+                      case 'mutation':
+                        return 'purple';
+                      case 'partial':
+                        return 'pink'; // buql pink
+                      default:
+                        return 'black';
+                    }
+                  }),
                 },
               ],
             }}

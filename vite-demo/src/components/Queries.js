@@ -2,27 +2,32 @@
 const queries = [
   /*{
     label: 'Grab all users with the initial J',
-    code: 'insert query 1 code here',
+    query: '',
   },
   {
     label: 'Grab all posts created after Feb 9th 2024',
-    code: 'insert more code here',
+    query: '',
   }, */
   {
-    label: 'Grab all users with the userId 1',
-    code: 'query { user(userId: 1) { name } }',
+    label: 'Query: Grab all users with the userId 1',
+    query: 'query { user(userId: 1) { name } }',
   },
   {
-    label: 'Hello World Query!',
-    code: 'query { hello }',
+    label: 'Query: Hello World Query!',
+    query: 'query { hello }',
   },
   {
-    label: 'Grab all users and hello world',
-    code: 'query { getAllUsers { id username password } hello }',
+    label: 'Query: Grab all users and hello world',
+    query: 'query { getAllUsers { id username password } hello }',
   },
   {
-    label: 'Grab just the username of all users',
-    code: 'query { getAllUsers { username } }',
+    label: 'Query: Grab just the username of all users',
+    query: 'query { getAllUsers { username } }',
+  },
+  {
+    label: 'Mutation: Create User with name and password',
+    query:
+      'mutation { createUser (username: "Filip", password: "aGx75C6hz2!_") { id username password } }',
   },
 ];
 

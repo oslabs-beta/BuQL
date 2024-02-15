@@ -3,30 +3,37 @@
   align-items: center;
   flex-direction: column;
   padding: 100px;
+
+  button {
+    margin-top: 20px;
+  }
 }
 
 #queryanalytics {
   display: flex;
-  gap: 30px;
+  gap: 40px;
 }
 
 #queryselector,
 #querylabels label {
-  width: 500px;
+  width: 650px;
 }
+
 #querylabels,
 #queryboxes,
 #querybuttons {
   flex-direction: row;
   display: flex;
   padding: 10px;
-  gap: 30px;
+  gap: 40px;
+  
 }
 
 #querybuttons {
   gap: 120px;
   margin-bottom: 30px;
 }
+
 #queryselector select,
 #querylabels label,
 #barchart label {
@@ -36,67 +43,73 @@
 
 #querylabels pre,
 #queryboxes pre {
-  width: 500px;
-  height: 300px;
+  width: 650px;
+  height: 350px;
   background-color: rgb(25, 25, 25);
   border-radius: 3px;
-  border: 1px solid pink;
+  border: 2px solid pink;
   font-size: 14px;
   text-align: left;
   padding: 5px;
   overflow: auto;
-}
-
-#queryform button {
-  margin-top: 20px; /* Add some space between the divs and the button */
-}
-
-#barchart,
-#querytable {
-  width: 800px;
-  height: 450px;
-  overflow: auto;
+  box-shadow: 0px 0px 5px 1px pink;
 }
 
 #querytable {
   border-collapse: collapse;
   width: 800px;
-}
-#querytable table {
-  width: 75%;
-  margin-right: 0;
-  margin-left: auto;
+  height: 460px;
+  table {
+    width: 100%;
+    margin-right: 0;
+    margin-left: auto;
+  }
+  th,
+  td {
+    border: 1px solid transparent;
+    padding: 8px;
+  }
+  th {
+    text-align: center;
+    background-color: rgb(20, 20, 20);
+    padding: 8px;
+  }
+  tr:nth-child(even) {
+    background-color: rgb(25, 25, 25);
+  }
+
+  tr:hover {
+    background-color: rgb(55, 55, 55);
+  }
 }
 
-#querytable table,
+#querytable,
 #barchart {
-  border: 1px solid pink;
+  width: 800px;
+  overflow: auto;
+  border: 2px solid pink;
   border-radius: 2px;
-}
-
-#querytable th,
-#querytable td {
-  border: 1px solid transparent; /* Set transparent border to reserve space for borders */
-  padding: 8px; /* Adjust padding as needed */
-}
-
-#querytable th {
-  text-align: left;
-  background-color: #050505;
-}
-
-.querytable tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#querytable tr:hover {
-  background-color: #ddd;
-  color: black;
-}
-th {
-  padding: 8px;
+  box-shadow: 0px 0px 5px 1px pink;
 }
 
 #barchart {
   padding-top: 10px;
+  color: white;
+  height: 450px;
+
+  canvas {
+    padding: 10px;
+  }
+}
+
+/* Vertical Layout on a narrow screen */
+@media screen and (max-width: 1000px) {
+  #querylabels,
+  #queryboxes,
+  #queryanalytics {
+    flex-direction: column;
+  }
+  #querybuttons {
+    gap: 30px;
+  }
 }
