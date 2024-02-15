@@ -91,47 +91,41 @@ function QueryForm() {
       // console.log(`Execution time: ${newTime} ms`);
 
       // deconstruct the source string
-      const {source, response} = responseObj;
+      let {source, response} = responseObj;
 
       // update state variables
       setResponseSources((prevState) => [...prevState, source]);
 
       setResponseTimes((prevState) => [...prevState, newTime]);
 
+      console.log(responseObj);
       // check if response object is an error object and extract its errors if so
       if (Object.hasOwn(response, 'errors')) {
         setQueryResponse(response.errors);
+        source = 'error';
       } // otherwise extract its response data
       else {
         setQueryResponse(response.data);
       }
 
+      // generate next id for graph & table
       let newId = 1;
       if (tableData.length !== 0) {
         newId = tableData[tableData.length - 1].id + 1;
       }
 
-      // Update tableData with the new query information
+      // update tableData with the new query information
       setTableData((prevTableData) => [
         ...prevTableData,
         {
-          id: prevTableData.length + 1, // DOES THIS NEED EDITING???
+          id: newId, // might need refactoring
           query: selectedQuery.label,
-          source: source, //'database', // set source to "database" by default for now
+          source: source,
           time: newTime,
         },
       ]);
 
       setResponseCount((prevState) => [...prevState, newId]);
-      // console.log(responseObj);
-      // console.log(responseObj.data);
-
-      console.log(
-        'responseTimer:',
-        responseTimes,
-        'responseCount:',
-        responseCount
-      );
     } catch (error) {
       console.log('Error in sendQueryClick!');
       console.error('Error:', error);
@@ -140,7 +134,8 @@ function QueryForm() {
 
   // render this form back in App.jsx where it was called
   // form includes a select box + a code block for the query
-  // a button to send the query and a code block for the query response
+  // buttons: send query, clear cache, clear table and clear graph
+  // and a table and a graph to showcase the response times of queries
   return (
     <div id='queryform'>
       <div id='querylabels'>
@@ -178,6 +173,7 @@ function QueryForm() {
               datasets: [
                 {
                   data: responseTimes,
+                  // assign each row of data a color based on its source from the backend
                   backgroundColor: responseSources.map((source) => {
                     switch (source) {
                       case 'database':
