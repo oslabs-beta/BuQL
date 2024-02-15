@@ -9,15 +9,12 @@ function QueryForm() {
   // defining state variables (might refactor to cleaner code later on)
   // keeping track of the query that's currently selected in the demo
   const [selectedQuery, setSelectedQuery] = useState({});
-
   // contains the query response
   const [queryResponse, setQueryResponse] = useState();
-
   // update the bar chart's information
   const [responseTimes, setResponseTimes] = useState([]);
   const [responseCount, setResponseCount] = useState([]);
   const [responseSources, setResponseSources] = useState([]);
-
   // keep track of the table data
   const [tableData, setTableData] = useState([]);
 
@@ -180,7 +177,6 @@ function QueryForm() {
               labels: responseCount,
               datasets: [
                 {
-                  label: 'Red = Database - Green = Cache - Purple: Mutation',
                   data: responseTimes,
                   backgroundColor: responseSources.map((source) => {
                     switch (source) {
@@ -190,6 +186,8 @@ function QueryForm() {
                         return 'green';
                       case 'mutation':
                         return 'purple';
+                      case 'partial':
+                        return 'yellow';
                       default:
                         return 'black';
                     }

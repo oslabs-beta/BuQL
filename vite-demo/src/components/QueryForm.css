@@ -3,6 +3,10 @@
   align-items: center;
   flex-direction: column;
   padding: 100px;
+
+  button {
+    margin-top: 20px;
+  }
 }
 
 #queryanalytics {
@@ -14,6 +18,7 @@
 #querylabels label {
   width: 650px;
 }
+
 #querylabels,
 #queryboxes,
 #querybuttons {
@@ -27,6 +32,7 @@
   gap: 120px;
   margin-bottom: 30px;
 }
+
 #queryselector select,
 #querylabels label,
 #barchart label {
@@ -47,62 +53,60 @@
   overflow: auto;
 }
 
-#queryform button {
-  margin-top: 20px; /* Add some space between the divs and the button */
-}
-
-#barchart,
-#querytable {
-  width: 800px;
-  height: 450px;
-  overflow: auto;
-}
-
 #querytable {
   border-collapse: collapse;
   width: 800px;
-  height: 462px;
-}
-#querytable table {
-  width: 100%;
-  margin-right: 0;
-  margin-left: auto;
+  height: 460px;
+  table {
+    width: 100%;
+    margin-right: 0;
+    margin-left: auto;
+  }
+  th,
+  td {
+    border: 1px solid transparent;
+    padding: 8px;
+  }
+  th {
+    text-align: center;
+    background-color: rgb(20, 20, 20);
+    padding: 8px;
+  }
+  tr:nth-child(even) {
+    background-color: rgb(25, 25, 25);
+  }
+
+  tr:hover {
+    background-color: rgb(55, 55, 55);
+  }
 }
 
-#querytable table,
+#querytable,
 #barchart {
+  width: 800px;
+  height: 450px;
+  overflow: auto;
   border: 1px solid pink;
   border-radius: 2px;
-}
-
-#querytable th,
-#querytable td {
-  border: 1px solid transparent; /* Set transparent border to reserve space for borders */
-  padding: 8px; /* Adjust padding as needed */
-}
-
-#querytable th {
-  text-align: left;
-  background-color: #050505;
-}
-
-.querytable tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#querytable tr:hover {
-  background-color: #ddd;
-  color: black;
-}
-th {
-  padding: 8px;
 }
 
 #barchart {
   padding-top: 10px;
   color: white;
+
+  canvas {
+    padding: 10px;
+  }
 }
 
-#barchart canvas {
-  padding: 10px;
+/* Vertical Layout on a narrow screen */
+@media screen and (max-width: 1000px) {
+  #querylabels,
+  #queryboxes,
+  #queryanalytics {
+    flex-direction: column;
+  }
+  #querybuttons {
+    gap: 30px;
+  }
 }
