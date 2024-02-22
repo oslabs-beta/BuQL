@@ -34,42 +34,7 @@ function QueryForm() {
     setSelectedQuery(query);
   };
 
-  const clearCacheClick = async () => {
-    // send a request to the /clearCache route that will handle clearing the cache
-    try {
-      await fetch('http://localhost:8080/clearCache', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  //functionality for clearing the Response Time Chart
-  const clearChartClick = async () => {
-    try {
-      console.log('Chart has been cleared.');
-      setResponseCount([]);
-      setResponseTimes([]);
-      setResponseSources([]);
-    } catch (err) {
-      console.log('Error clearing chart:', err);
-    }
-  };
-
-  //functionality for clearing the Query Table
-  const clearTableClick = async () => {
-    try {
-      console.log('Table has been cleared.');
-      setTableData([]);
-    } catch (err) {
-      console.log('Error clearing table:', err);
-    }
-  };
-
+  // functionality for clicking "Send Query"
   const sendQueryClick = async () => {
     // run the selected query and save the response time
     try {
@@ -131,6 +96,44 @@ function QueryForm() {
     } catch (error) {
       console.log('Error in sendQueryClick!');
       console.error('Error:', error);
+    }
+  };
+
+  // functionality for clearing the cache
+  const clearCacheClick = async () => {
+    // send a request to the /clearCache route that will handle clearing the cache
+    try {
+      await fetch('http://localhost:8080/clearCache', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      alert('The cache has been cleared!');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  //functionality for clearing the Response Time Chart
+  const clearChartClick = async () => {
+    try {
+      console.log('Chart has been cleared.');
+      setResponseCount([]);
+      setResponseTimes([]);
+      setResponseSources([]);
+    } catch (err) {
+      console.log('Error clearing chart:', err);
+    }
+  };
+
+  //functionality for clearing the Query Table
+  const clearTableClick = async () => {
+    try {
+      console.log('Table has been cleared.');
+      setTableData([]);
+    } catch (err) {
+      console.log('Error clearing table:', err);
     }
   };
 
