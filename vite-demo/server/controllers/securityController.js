@@ -1,5 +1,8 @@
 //define the securityController object to add methods to; the object will be returned at the bottom of the file
 const securityController = {};
+//imports for validationRules (security)
+import {createComplexityLimitRule} from 'graphql-validation-complexity';
+import depthLimit from 'graphql-depth-limit';
 
 //example query: "query { getAllUsers {id username password } hello }"
 
@@ -34,6 +37,35 @@ request.incrementResolverCount =  function () {
   };
   
 */
+
+/* this will be an optional method on the BuQL object as a whole;
+user will pull it from the created BuQL object (const security = BuQL.security) 
+then, when passing it in as middleware, invoke it with custom options if they need ('/endpoint', security(custom options), (req, res) => ... )*/
+export function RulesCreator(givenLimit = 10, costLimit = 1000, customRules) {
+  //define the default list of rules; source: https://github.com/4Catalyzer/graphql-validation-complexity
+  const defaultRules = {
+    scalarCost: 1,
+    objectCost: 0,
+    listFactor: 10,
+    introspectionListFactor: 2,
+  };
+  //check if user has passed in custom options
+  if (customRules) {
+    //verify that custom options is an object (but not an array)
+    if (typeof customRules !== 'object' || Array.isArray(customRules)) {
+      throw new Error('customRules should be an object');
+    }
+    //combine defaultRules with the custom rules
+    Object.assign(defaultRules, customRules);
+  }
+  //return the costlimit and default rules
+  return [depthLimit(givenLimit), costLimit, defaultRules];
+}
+/* there's two ways this can go:
+      1. set this up as a ternary, checking if the user has called it or something (what i have right now)
+      2. make sure the user pulls and invokes it, whether or not they use the options */
+
+// const rules = /* something ? */ RulesCreator(); /* : RulesCreator(things, user, passes, in) */
 
 //export the object built out in this file
 export default securityController;

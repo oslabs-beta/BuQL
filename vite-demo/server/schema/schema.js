@@ -26,7 +26,7 @@ const UserType = new GraphQLObjectType({
   }),
 });
 
-// define the RootQuery, which is the entry point for querying data
+// Define what data can be queried
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
@@ -50,11 +50,10 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-// define any mutations for the data
+// Define mutations
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    // User mutations
     addRandomUsers: {
       type: new GraphQLList(UserType),
       args: {
