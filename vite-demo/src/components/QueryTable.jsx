@@ -38,36 +38,37 @@ function QueryTable(props) {
 
   // render the table
   return (
-    <div id='querytable'>
-      <table {...getTableProps()}>
-        <thead>
-          <tr>
-            {columns.map((column) => (
-              <th key={column.accessor}>{column.Header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()} key={row.id}>
-                {row.cells.map((cell, cellIndex) => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      key={`${row.id}-cell-${cellIndex}`}
-                    >
-                      {cell.render('Cell')}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <table {...getTableProps()}>
+      <thead>
+        <tr>
+          {/* create the table headers based on the columns defined previously */}
+          {columns.map((column) => (
+            <th key={column.accessor}>{column.Header}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => {
+          prepareRow(row);
+          // render each row
+          return (
+            <tr {...row.getRowProps()} key={row.id}>
+              {row.cells.map((cell, cellIndex) => {
+                // render each cell for the current row
+                return (
+                  <td
+                    {...cell.getCellProps()}
+                    key={`${row.id}-cell-${cellIndex}`}
+                  >
+                    {cell.render('Cell')}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 }
 

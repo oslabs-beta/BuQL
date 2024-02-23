@@ -7,13 +7,13 @@ import QueryTable from './QueryTable.jsx';
 
 function QueryForm() {
   // defining state variables (might refactor to redux later on)
+
   // keeping track of the query that's currently selected for the demo
   const [selectedQuery, setSelectedQuery] = useState({});
   // contains the query response
   const [queryResponse, setQueryResponse] = useState();
 
-  // hold on to the bar chart's information
-  // times: bar sizes, count: bar names, sources = db/cache/etc
+  // bar chart information --- times: bar sizes, count: bar names, sources = db/cache/etc
   const [chartData, setChartData] = useState({
     responseTimes: [],
     responseCount: [],
@@ -23,22 +23,22 @@ function QueryForm() {
   // keep track of the table data (array of table rows)
   const [tableData, setTableData] = useState([]);
 
-  // update state whenever a different query is selected
+  // logic that happens when a new query gets selected
   const handleQuerySelector = (event) => {
     // clearing the query response field
     setQueryResponse();
 
-    // accessing the selected query name and corresponding code
+    // this accesses the selected query name and corresponding code
     const selectedIndex = event.target.selectedIndex;
     const selectedOption = event.target[selectedIndex];
     const selectedLabel = selectedOption.textContent;
 
-    // declaring an object that will hold onto the query and its cod
+    // declaring an object that will hold onto the query label and its code
     const query = {};
     query.label = selectedLabel;
     query.query = event.target.value;
 
-    // assign the query object
+    // assign that query object to its state variable
     setSelectedQuery(query);
   };
 
@@ -72,7 +72,7 @@ function QueryForm() {
         setQueryResponse(response.errors);
         // make sure it populates the graph/table as error data
         source = 'error';
-      } // otherwise extract its response data
+      } // otherwise extract its response data and assign it to state
       else {
         setQueryResponse(response.data);
       }
@@ -144,7 +144,7 @@ function QueryForm() {
       setTableData([]);
       console.log('Table has been cleared.');
     } catch (error) {
-      console.log('Error clearing table:', error);
+      console.error('Error clearing table:', error);
     }
   };
 
@@ -156,63 +156,40 @@ function QueryForm() {
     <div id='queryform'>
       <div id='querylabels'>
         <div id='queryselector'>
+          {/* select-box that shows "Select a query" by default and has demo queries to choose from */}
           <select value={selectedQuery.query} onChange={handleQuerySelector}>
-            {/* show "Select a query" by default, but make it not selectable */}
-            <option defaultValue={true} hidden>
-              Select a query
-            </option>
+            <option defaultValue={true} hidden>Select a query</option>
             {/* map the sample queries into the select box */}
             {queries.map((query) => (
-              <option key={query.label} value={query.query}>
-                {query.label}
-              </option>
+              <option key={query.label} value={query.query}>{query.label}</option>
             ))}
           </select>
         </div>
         <label>Query Response:</label>
       </div>
+
+      {/* text-boxes (read-only) that display the selected query and its query response and format them nicely */}
       <div id='queryboxes'>
         <ReactJson data={selectedQuery.query} />
         <ReactJson data={queryResponse} />
       </div>
+
       <div id='querybuttons'>
         <button onClick={clearTableClick}>Clear Table</button>
         <button onClick={sendQueryClick}>Send Query</button>
         <button onClick={clearCacheClick}>Clear Cache</button>
         <button onClick={clearChartClick}>Clear Chart</button>
       </div>
+
       <div id='queryanalytics'>
-        <QueryTable data={tableData} />
+        <div id='querytable'>
+          {/* feed the table data to the table component and render it */}
+          <QueryTable data={tableData} />
+        </div>
         <div id='barchart'>
           <label style={{color: 'white'}}>Response Time</label>
-          <br />
-          {/* renders the bar chart */}
-          <BarChart
-            // feed chart data into the bar chart
-            chartData={{
-              labels: chartData.responseCount,
-              datasets: [
-                {
-                  data: chartData.responseTimes,
-                  // assign each row of data a color based on its source from the backend
-                  backgroundColor: chartData.responseSources.map((source) => {
-                    switch (source) {
-                      case 'database':
-                        return '#f077bc';
-                      case 'cache':
-                        return '#faefdf'; // bun color
-                      case 'mutation':
-                        return 'purple';
-                      case 'partial':
-                        return 'pink';
-                      default:
-                        return 'black';
-                    }
-                  }),
-                },
-              ],
-            }}
-          />
+          {/* feed the chart data to the bar chart component and render it */}
+          <BarChart rawData={chartData} />
         </div>
       </div>
     </div>
