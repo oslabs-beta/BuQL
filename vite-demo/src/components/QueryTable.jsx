@@ -1,17 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useTable} from 'react-table';
 
 function QueryTable(props) {
   const {data} = props;
 
-  //data previously:
-  /*  const [data, setData] = useState([
-    { id: 1, query: 'Select all users', source: 'database', time: 15},
-    { id: 2, query: 'Hello World', source: 'database', age: 25 },
-    // Initial data for the table
-  ]); */
-
-  // Define your table columns
+  // defining the table columns
   const columns = React.useMemo(
     () => [
       {
@@ -36,6 +29,7 @@ function QueryTable(props) {
 
   // reverse data to populate table backwards
   const reversedData = [...data].reverse();
+
   // define table instance using useTable hook
   const {getTableProps, rows, prepareRow} = useTable({
     columns,
@@ -58,9 +52,12 @@ function QueryTable(props) {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()} key={row.id}>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, cellIndex) => {
                   return (
-                    <td {...cell.getCellProps()} key={cell.column.accessor}>
+                    <td
+                      {...cell.getCellProps()}
+                      key={`${row.id}-cell-${cellIndex}`}
+                    >
                       {cell.render('Cell')}
                     </td>
                   );

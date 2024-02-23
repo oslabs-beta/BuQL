@@ -1,4 +1,3 @@
-
 // We installed 'chart.js', 'react-chartjs-2' for creating our chart
 // It is important to note that without 'chart.js/auto' that chart will * NOT * render
 
@@ -42,7 +41,7 @@ function BarChart({chartData}) {
     plugins: {
       legend: {
         labels: {
-          font:{
+          font: {
             size: 16,
           },
           // creates the labels for the legend
@@ -50,7 +49,6 @@ function BarChart({chartData}) {
             return legendItems;
           },
         },
-        
       },
     },
     scales: {
