@@ -29,12 +29,12 @@ const queries = [
   {
     label: 'Grab a specific user by its userId',
     query:
-      'query { getUserById(id: "65cdf731aeda2e240baec9fb") { id username email birthdate registeredAt } }',
+      'query { getUserById(id: "65cdf731aeda2e240baec9fd") { id username email birthdate registeredAt } }',
   },
   {
     label: 'Delete a specific user by its userId',
     query:
-      'mutation { deleteById(id: "65cdf731aeda2e240baec9fb") { id username email birthdate registeredAt } }',
+      'mutation { deleteById(id: "65cdf731aeda2e240baec9fd") { id username email birthdate registeredAt } }',
   },
   {
     label: 'Add a random new user',
@@ -48,7 +48,7 @@ const queries = [
   {
     label: 'Query with illegal character',
     query:
-      'query { getUserById(id: "65cdf731aeda2e240baec9fb" OR 1=1) { id username email } }',
+      'query { getUserById(id: "65cdf731aeda2e240baec9fd" OR 1=1) { id username email } }',
   },
 ];
 
