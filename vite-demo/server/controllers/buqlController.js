@@ -50,7 +50,7 @@ buqlController.checkCache = async (req, res, next) => {
   }
 };
 
-buqlController.addCache = async (req, res, next) => {
+buqlController.addCache = async (req, res) => {
   // send query, add stringified response to cache, and return json response
   const { query } = req.body;
 
