@@ -1,20 +1,22 @@
+import './Home.css'
+
 function Home(){
     return (
         <div>
-            <h1>
-            Home Page goes here
-            </h1>
-            <p>
-            We are BuQL. None of your Queries are safe. Now bow before the might of your merciful leaders.
-            </p>
+            <div id='home'>
+                <h1>BuQL</h1>
+                <h2>Light-weigh NPM package for GraphQL caching</h2>
+            </div>
+            <div id='home'>
+                <h1>Explained</h1>
+                <p>BuQL is a lightweight NPM packing for server-side GraphQL caching in the Bun runtime environment.
+                    Boasting ZERO dependencies, our open source product, is designed retrieve queries with lighting speed
+                    from your Redis cache. 
+                </p>
+            </div>
         </div>
-        
     )
-
 }
-
-
-
 
 
 export default Home;

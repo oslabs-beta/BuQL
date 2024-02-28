@@ -57,7 +57,7 @@
 
 #querytable {
   border-collapse: collapse;
-  width: 800px;
+  width: 660px;
   height: 460px;
   table {
     width: 100%;
@@ -85,7 +85,7 @@
 
 #querytable,
 #barchart {
-  width: 800px;
+  width: 660px;
   overflow: auto;
   border: 2px solid pink;
   border-radius: 2px;
