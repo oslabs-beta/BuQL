@@ -175,10 +175,10 @@ function QueryForm() {
       </div>
 
       <div id='querybuttons'>
-        <button onClick={clearTableClick}>Clear Table</button>
-        <button onClick={sendQueryClick}>Send Query</button>
-        <button onClick={clearCacheClick}>Clear Cache</button>
-        <button onClick={clearChartClick}>Clear Chart</button>
+        <button onClick={clearTableClick} style={{cursor: "default"}}>Clear Table</button>
+        <button onClick={sendQueryClick} style={{cursor: "default"}}>Send Query</button>
+        <button onClick={clearCacheClick} style={{cursor: "default"}}>Clear Cache</button>
+        <button onClick={clearChartClick} style={{cursor: "default"}}>Clear Chart</button>
       </div>
 
       <div id='queryanalytics'>

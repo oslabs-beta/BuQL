@@ -34,9 +34,9 @@ function App() {
           <a href='https://www.bobdylan.com/' style={{cursor: 'default'}}>
             <img src='/medium.svg' className='sociallogo' alt='Medium'/>
           </a>
-          {/* <button onClick={() => window.location.href = 'https://twitter.com/_BuQL_?t=ZGTgImK-03uYMEzvVCeuQg&s=09&fbclid=IwAR3QYlHvSHr7gE7haPDMOHG_UiXAZf1i-gFw25KKLJgDRncKCGnTAZ-1K5E'} style={{cursor: "default"}}> Twitter </button>
-          <button onClick={() => window.location.href = 'https://www.linkedin.com/in/buql-osp-a43b892b6/'} style={{cursor: "default"}}> LinkedIn </button> */}
-          {/* <button onClick={() => alert('still missing Medium article')} style={{cursor: "default"}}> Medium </button> */}
+          <a href='https://github.com/oslabs-beta/BuQL' style={{cursor: 'default'}}>
+            <img src='/github-mark.svg' className='sociallogo' alt='GitHub'/>
+          </a>
         </nav>
         <img className='logo' src='/BuQL.png'></img>
         <h1 className='buql' onClick={() => setCurrentPage('home')} style={{cursor: "default"}}>BuQL</h1>
@@ -48,11 +48,10 @@ function App() {
       </div>
       
       <div id='demo'>
-        {/* <QueryForm></QueryForm> */}
         {renderPage()}
       </div>
       <div id='footer'>
-        <h2>Open Source and MIT Licensed</h2>
+        <h2>Open Source & MIT Licensed</h2>
       </div>
     </>
   );
