@@ -65,16 +65,29 @@ function QueryForm() {
       const runTime = timeEnd - timeStart;
 
       // deconstruct the response object
-      let {source, response} = responseObj;
+      let {source, cacheHits, nonCache, response} = responseObj;
 
       // check if response object is an error object and extract its errors if so
+      // console.log(responseObj);
+      // console.log(response);
       if (Object.hasOwn(response, 'errors')) {
         setQueryResponse(response.errors);
         // make sure it populates the graph/table as error data
         source = 'error';
-      } // otherwise extract its response data and assign it to state
+      } // otherwise extract its response data, assign it to state and determine the source
       else {
-        setQueryResponse(response.data);
+        setQueryResponse(response);
+        // figure out the source of the data
+        if (!source) {
+          if (cacheHits === 0) {
+            source = 'database';
+          } else if (nonCache === 0) {
+            source = 'cache';
+          } else {
+            source = 'partial';
+          }
+        }
+        // otherwise source is 'mutation'
       }
 
       // generate next id for graph & table
@@ -158,10 +171,14 @@ function QueryForm() {
         <div id='queryselector'>
           {/* select-box that shows "Select a query" by default and has demo queries to choose from */}
           <select value={selectedQuery.query} onChange={handleQuerySelector}>
-            <option defaultValue={true} hidden>Select a query</option>
+            <option defaultValue={true} hidden>
+              Select a query
+            </option>
             {/* map the sample queries into the select box */}
             {queries.map((query) => (
-              <option key={query.label} value={query.query}>{query.label}</option>
+              <option key={query.label} value={query.query}>
+                {query.label}
+              </option>
             ))}
           </select>
         </div>
@@ -175,10 +192,18 @@ function QueryForm() {
       </div>
 
       <div id='querybuttons'>
-        <button onClick={clearTableClick} style={{cursor: "default"}}>Clear Table</button>
-        <button onClick={sendQueryClick} style={{cursor: "default"}}>Send Query</button>
-        <button onClick={clearCacheClick} style={{cursor: "default"}}>Clear Cache</button>
-        <button onClick={clearChartClick} style={{cursor: "default"}}>Clear Chart</button>
+        <button onClick={clearTableClick} style={{cursor: 'default'}}>
+          Clear Table
+        </button>
+        <button onClick={sendQueryClick} style={{cursor: 'default'}}>
+          Send Query
+        </button>
+        <button onClick={clearCacheClick} style={{cursor: 'default'}}>
+          Clear Cache
+        </button>
+        <button onClick={clearChartClick} style={{cursor: 'default'}}>
+          Clear Chart
+        </button>
       </div>
 
       <div id='queryanalytics'>
