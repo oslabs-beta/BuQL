@@ -3,8 +3,8 @@ import { handleQuery } from './helpers';
 
 const buql = {};
 
-// TODO
-// Fix query type not populating in response object on response from database
+// TO-DO
+// Fix query type not populating on response object from database
 // Clean up comments / variable names in helpers.js
 // Generalize all fetch requests to format strings using Bun.env
 
