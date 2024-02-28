@@ -112,7 +112,7 @@ export const handleQuery = async (query) => {
         // update queryMap with the new data for each field
         queryMap.set(JSON.stringify(ref[field]), fieldVal);
         // update the cache using the key from the reference object
-        await redis.set(JSON.stringify(ref[field]), fieldVal);
+        redis.set(JSON.stringify(ref[field]), fieldVal);
       }
     }
 
