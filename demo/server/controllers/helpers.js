@@ -1,33 +1,36 @@
 import { parse } from 'graphql/language/parser';
 import redis from './redis';
 
+/*
+ * handleQuery processes an incoming GraphQL query, checks for (partially) cached 
+ * responses in Redis, queries the database if necessary, and caches new data.
+ */
+
 export const handleQuery = async (query) => {
+  // parse query and initialize count variables
   const parsedQuery = parse(query);
   let cacheHits = 0;
   let nonCache = 0;
 
-  // split queries by field
-  // access the array of type objects
-  const types = parsedQuery.definitions[0].selectionSet.selections;
+  // extract fields requested in the GraphQL query to check the cache for each field
+  const queryTypes = parsedQuery.definitions[0].selectionSet.selections;
+  // create a map to store the caching status of each field
   const queryMap = new Map();
-  types.forEach((type) => {
+  queryTypes.forEach((type) => {
     const fields = type.selectionSet.selections;
-    // iterate through fields array
     fields.forEach((field) => {
-      // add each field as a key to keys
       const key = {
         type: type.name.value,
         args: type.arguments,
         field: field.name.value,
       };
-      // put key obj in keys map
+      // stringify key object for storage in queryMap
       queryMap.set(JSON.stringify(key), null);
     });
   });
 
-  // populate keyMap from cache
+  // try to populate queryMap from Redis cache
   for (const keyString of queryMap.keys()) {
-    const key = JSON.parse(keyString);
     const result = await redis.get(keyString);
     if (result !== null) {
       cacheHits++;
@@ -37,88 +40,90 @@ export const handleQuery = async (query) => {
     }
   }
 
-  // check for values
-  let allVals = true;
+  // check whether all fields were found in the cache
+  let allFieldsCached = true;
   for (const keyString of queryMap.keys()) {
-    const key = JSON.parse(keyString);
-    if (!queryMap.get(keyString)) allVals = false;
+    if (!queryMap.get(keyString)) allFieldsCached = false;
   }
-  console.log('allVals? ', allVals);
-  console.log('cache hits ', cacheHits);
-  console.log('non-cache hits ', nonCache);
 
-  // send response object if allVals
-  if (allVals) {
-    const res = { source: 'cache', response: {} };
+  // if so, build and return response object
+  if (allFieldsCached) {
+    const gqlResponse = { cacheHits, nonCache, response: {} };
     const type = JSON.parse(queryMap.keys().next().value).type;
-    res.response[type] = {};
+    gqlResponse.response[type] = {};
     for (let [keyString, value] of queryMap) {
       const key = JSON.parse(keyString);
-      res.response[type][key.field] = value;
+      gqlResponse.response[type][key.field] = value;
     }
-    return { 'queryRes': res, cacheHits, nonCache };
-  } else {
-    // build sub query
-    const subQuery = [];
-    for (const [keyString, value] of queryMap) {
+    return gqlResponse;
+  } // if not, build a sub query for fields not found in the cache
+  else {
+    // create an array of fields to fetch if their value was not cached
+    const fieldsToFetch = [];    
+    for (const [keyString, value] of queryMap) {      
       if (value === null) {
-        subQuery.push(JSON.parse(keyString));
+        fieldsToFetch.push(JSON.parse(keyString));
       }
     }
 
+    // start constructing the actual sub query string
     let type = '';
-    let arg = '';
+    let args = '';
     let fields = '';
-    if (subQuery.length > 0) {
-      type += subQuery[0].type;
-      if (subQuery[0].args.length !== 0) {
-        arg += '(';
-        subQuery[0].args.forEach((el) => {
-          arg += el.name.value + ': "' + el.value.value + '"';
+    if (fieldsToFetch.length > 0) {
+      type += fieldsToFetch[0].type;
+      // if subquery includes arguments, include them in the new query
+      if (fieldsToFetch[0].args.length !== 0) {
+        args += '(';
+        fieldsToFetch[0].args.forEach((el) => {
+          args += el.name.value + ': "' + el.value.value + '"';
         });
-        arg += ')';
+        args += ')';
       }
     }
-    for (let i = 0; i < subQuery.length; i++) {
-      fields += subQuery[i].field + ', ';
+    // prepare specified fields to be added to the query string
+    for (let i = 0; i < fieldsToFetch.length; i++) {
+      fields += fieldsToFetch[i].field + ', ';
     }
-    const fullQuery = `query { ${type} ${arg} {${fields}} }`;
+    // construct GraphQL query string, including type, args (if given) and requested fields 
+    const fullQuery = `query { ${type} ${args} {${fields}} }`;
 
-    // send subquery to db
-    const res = await fetch('http://localhost:8080/graphql', {
+    // send sub query string to graphql route
+    const gqlResponse = await fetch(`http://localhost:${Bun.env.PORT}/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ query: fullQuery }),
     });
-    let parsed = await res.json();
-    parsed = parsed.data;
+    let parsedResponse = await gqlResponse.json();
+    parsedResponse = parsedResponse.data;
 
-    // save back to redis
+    // cache the new data received from Redis
     let iterator = queryMap.keys();
     const ref = {};
     for (let _key of iterator) {
       _key = JSON.parse(_key);
       ref[_key.field] = _key;
     }
-    for (const [name, fields] of Object.entries(parsed)) {
-      const fields2 = fields;
-      for (const [field, fieldVal] of Object.entries(fields2)) {
+    // traverse the AST, saving the value for each field
+    for (const [name, fields] of Object.entries(parsedResponse)) {
+      for (const [field, fieldVal] of Object.entries(fields)) {
+        // update queryMap with the new data for each field
         queryMap.set(JSON.stringify(ref[field]), fieldVal);
-        const redisKey = JSON.stringify(ref[field]);
-        await redis.set(redisKey, fieldVal);
+        // update the cache using the key from the reference object
+        await redis.set(JSON.stringify(ref[field]), fieldVal);
       }
     }
 
-    // send response
-    const queryRes = { source: 'database', response: {} };
-    const newType = queryMap.keys().next().value.type;
+    // build and return response object
+    const queryRes = { cacheHits, nonCache, response: {} };
+    const newType = JSON.parse(queryMap.keys().next().value).type;
     queryRes.response[newType] = {};
-    for (let [key, value] of queryMap) {
-      key = JSON.parse(key);
+    for (let [keyStr, value] of queryMap) {
+      const key = JSON.parse(keyStr);
       queryRes.response[newType][key.field] = value;
     }
-    return { queryRes, cacheHits, nonCache};
+    return queryRes;
   }
 };

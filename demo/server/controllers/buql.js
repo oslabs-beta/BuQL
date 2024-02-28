@@ -4,9 +4,7 @@ import { handleQuery } from './helpers';
 const buql = {};
 
 // TO-DO
-// Fix query type not populating on response object from database
-// Clean up comments / variable names in helpers.js
-// Generalize all fetch requests to format strings using Bun.env
+// Test if it works for queries with no args
 
 buql.cache = async (req, res, next) => {
   const { query } = req.body;
@@ -15,7 +13,7 @@ buql.cache = async (req, res, next) => {
   if (query.includes('mutation')) {
     // send query to graphql route
     console.log('mutating the database');
-    const data = await fetch('http://localhost:8080/graphql', {
+    const data = await fetch(`http://localhost:${Bun.env.PORT}/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +23,6 @@ buql.cache = async (req, res, next) => {
 
     // clear the redis cache
     await redis.flushdb();
-    console.log('cache cleared');
 
     // parse and return the response
     const parsed = await data.json();
@@ -36,10 +33,10 @@ buql.cache = async (req, res, next) => {
   }
 
   // if query, proceed as normal
-  const { queryRes, cacheHits, nonCache } = await handleQuery(query);
-  console.log('Query response: ', queryRes);
-  console.log('Cache hits: ', cacheHits);
-  console.log('Not in cache: ', nonCache);
+  const queryRes = await handleQuery(query);
+  console.log('Query response: ', queryRes.response);
+  console.log('Cache hits: ', queryRes.cacheHits);
+  console.log('Not in cache: ', queryRes.nonCache);
 
   res.locals.response = queryRes;
 
@@ -49,7 +46,6 @@ buql.cache = async (req, res, next) => {
 buql.clearCache = async (req, res, next) => {
   // clear the cache
   await redis.flushdb();
-  console.log('cache cleared');
   return next();
 };
 
