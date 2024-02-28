@@ -100,6 +100,19 @@ export const handleQuery = async (query) => {
       }
     );
     let parsedResponse = await gqlResponse.json();
+
+    // error handling for undefined query types
+    if (parsedResponse.errors) {
+      const errorObject = parsedResponse.errors[0];
+      return {
+        response: {
+          message: errorObject.message,
+          errors: errorObject,
+        },
+      };
+    }
+
+    // if no error, access the response data
     parsedResponse = parsedResponse.data;
 
     // error handling for allowed query types
