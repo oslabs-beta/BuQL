@@ -9,7 +9,8 @@ body {
 #root {
   max-width: 1280px;
   min-height: 100%;  
-  margin: 100px auto 0px;
+  /* margin was 100px */
+  margin: 0px auto 0px;
   padding: 2rem;
   text-align: center;
 }
@@ -23,7 +24,7 @@ body {
   line-height: 80px;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em blanchedalmond);
+  filter: drop-shadow(0 0 2em white);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em pink);
@@ -56,7 +57,7 @@ body {
   top: 0px;
   position: fixed;
   text-align: center;
-  border-bottom: 5px solid #f077bc;
+  border-bottom: 10px solid #f077bc;
   /* was 'pink' */
   gap: 20px;
 
@@ -82,11 +83,18 @@ body {
   left: 0;
   top: 0;
   /* top right bottom left */
-  margin: 28px 0 auto 15px;
+  margin: 25px 0 auto 15px;
   display: flex;
   flex-direction: row; /* set logos side-by-side */
   gap: 15px;
   line-height: 80px;
+}
+
+.sociallogo:hover{
+  /* border-color: #646cff; */
+  /* color: #faefdf; */
+  /* box-shadow: 0px 0px 7px 3px #f077bc; */
+  filter: drop-shadow(0px 0px 5px white);
 }
 
 .sociallogo {
