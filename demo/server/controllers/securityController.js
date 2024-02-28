@@ -41,7 +41,7 @@ request.incrementResolverCount =  function () {
 /* this will be an optional method on the BuQL object as a whole;
 user will pull it from the created BuQL object (const security = BuQL.security) 
 then, when passing it in as middleware, invoke it with custom options if they need ('/endpoint', security(custom options), (req, res) => ... )*/
-export function RulesCreator(givenLimit = 10, costLimit = 1000, customRules) {
+securityController.RulesCreator = (givenLimit = 10, costLimit = 1000, customRules) => {
   //define the default list of rules; source: https://github.com/4Catalyzer/graphql-validation-complexity
   const defaultRules = {
     scalarCost: 1,
@@ -58,6 +58,7 @@ export function RulesCreator(givenLimit = 10, costLimit = 1000, customRules) {
     //combine defaultRules with the custom rules
     Object.assign(defaultRules, customRules);
   }
+  //console.log(givenLimit, costLimit, defaultRules)
   //return the costlimit and default rules
   return [depthLimit(givenLimit), costLimit, defaultRules];
 }
@@ -65,7 +66,6 @@ export function RulesCreator(givenLimit = 10, costLimit = 1000, customRules) {
       1. set this up as a ternary, checking if the user has called it or something (what i have right now)
       2. make sure the user pulls and invokes it, whether or not they use the options */
 
-// const rules = /* something ? */ RulesCreator(); /* : RulesCreator(things, user, passes, in) */
-
+//console.log(RulesCreator())
 //export the object built out in this file
 export default securityController;

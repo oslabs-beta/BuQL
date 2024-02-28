@@ -20,6 +20,7 @@ app.use(express.json());
 // import controllers
 import buql from './controllers/buql';
 import securityController from './controllers/securityController';
+// const rules = /* did the user invoke with custom rules ? RulesCreator(things, user, passes, in) : */RulesCreator();
 
 // Route to Buql to check if it's in the cache
 app.use('/buql', buql.cache, (req, res) => {
@@ -39,7 +40,7 @@ app.use(
     schema,
     graphiql: true,
     //validation rules for security
-    //validationRules: [...rules]
+    // validationRules: [...rules]
   })
 );
 
