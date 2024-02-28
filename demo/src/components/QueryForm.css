@@ -2,11 +2,11 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 100px;
+  padding: 75px;
 
-  button {
+  /* button {
     margin-top: 20px;
-  }
+  } */
 }
 
 #queryanalytics {
@@ -30,8 +30,8 @@
 }
 
 #querybuttons {
-  gap: 120px;
-  margin-bottom: 30px;
+  gap: 130px;
+  margin-bottom: 15px;
 }
 
 #queryselector select,
@@ -44,7 +44,7 @@
 #querylabels pre,
 #queryboxes pre {
   width: 650px;
-  height: 350px;
+  height: 330px;
   background-color: rgb(25, 25, 25);
   border-radius: 3px;
   border: 2px solid pink;
@@ -57,7 +57,7 @@
 
 #querytable {
   border-collapse: collapse;
-  width: 800px;
+  width: 660px;
   height: 460px;
   table {
     width: 100%;
@@ -85,7 +85,7 @@
 
 #querytable,
 #barchart {
-  width: 800px;
+  width: 660px;
   overflow: auto;
   border: 2px solid pink;
   border-radius: 2px;

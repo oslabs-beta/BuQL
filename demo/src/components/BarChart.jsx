@@ -83,12 +83,18 @@ function BarChart({rawData}) {
     scales: {
       // x-axis styles
       x: {
+        grid: {
+          color: 'hotpink',
+        },
         ticks: {
           color: 'white', // Font color of the x-axis labels
         },
       },
       // y-axis styles
       y: {
+        grid:{
+          color: 'hotpink',
+        },
         ticks: {
           color: 'white', // Font color of the y-axis labels
         },
