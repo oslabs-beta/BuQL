@@ -3,9 +3,6 @@ import { handleQuery } from './helpers';
 
 const buql = {};
 
-// TO-DO
-// Test if it works for queries with no args
-
 buql.cache = async (req, res, next) => {
   const { query } = req.body;
 
