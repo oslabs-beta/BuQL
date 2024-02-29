@@ -46,8 +46,8 @@ function AboutUs(){
                         </a>
                         <a>
                             {/* <Github href='https://github.com/Joseph-McGarry' style={{cursor: 'default'}} className='sociallogo' alt='GitHub'/> */}
-                            <Github />
                         </a>
+                        {/* <Github /> */}
                     </div>
                 </div>
             </div>
