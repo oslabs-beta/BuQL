@@ -47,7 +47,7 @@ function App() {
         </nav>
       </div>
       
-      <div id='demo'>
+      <div id='home'>
         {renderPage()}
       </div>
       <div id='footer'>
