@@ -2,7 +2,7 @@ import {useState} from 'react';
 import './QueryForm.css';
 import queries from './Queries.js';
 import ReactJson from 'react-json-pretty'; // Import ReactJson
-import BarChart from './BarChart';
+import BarChart from './BarChart.jsx';
 import QueryTable from './QueryTable.jsx';
 
 function QueryForm() {
