@@ -58,7 +58,6 @@ function QueryForm() {
         body: JSON.stringify({query: selectedQuery.query}),
       });
       const responseObj = await buqlResponse.json();
-
       // grab timestamp of when the function finished
       const timeEnd = Date.now();
       // then calculate the time the function ran for in ms
@@ -118,6 +117,7 @@ function QueryForm() {
       ]);
     } catch (error) {
       console.error('Error:', error);
+      setQueryResponse('Query rejected due to security concerns.');
     }
   };
 
