@@ -9,19 +9,14 @@ import { schema } from './schema/schema';
 
 app.use(express.json());
 
-// import controllers
-import buql from './controllers/buql';
-// import { buql, security } from '@buql/buql'
-// const buqlCache = buql.cache;
-const buqlClear = buql.clearCache;
-import security from './controllers/security';
-const buqlSecurity = security.checkChars;
+// import buql
+import buql from '@buql/buql';
 
-app.use('/buql', buqlSecurity, buql.cache, (req, res) => {
+app.use('/buql', buql.security, buql.cache, (req, res) => {
   return res.status(200).send(res.locals.response);
 });
 
-app.use('/clearCache', buqlClear, (req, res) => {
+app.use('/clearCache', buql.clearCache, (req, res) => {
   return res.status(200).send('cache cleared');
 });
 
@@ -31,8 +26,6 @@ app.use(
   graphqlHTTP({
     schema,
     graphiql: true,
-    //validation rules for security
-    // validationRules: [...rules]
   })
 );
 

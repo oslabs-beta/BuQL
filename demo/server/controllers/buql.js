@@ -30,11 +30,6 @@ buql.cache = async (req, res, next) => {
 
   // if query, proceed as normal
   const queryRes = await handleQuery(query);
-  if (!queryRes.response.errors) {
-    console.log('Query response: ', queryRes.response);
-    console.log('Cache hits: ', queryRes.cacheHits);
-    console.log('Not in cache: ', queryRes.nonCache);
-  }
   res.locals.response = queryRes;
   return next();
 };
