@@ -29,12 +29,12 @@ const queries = [
   {
     label: 'Grab a specific user by its userId',
     query:
-      'query { getUserById(id: "65cdf731aeda2e240baec9fd") { id username email birthdate registeredAt } }',
+      'query { getUserById(id: "65dfa2ed403abded4f2565f0") { id username email birthdate registeredAt } }',
   },
   {
     label: 'Delete a specific user by its userId',
     query:
-      'mutation { deleteById(id: "65cdf731aeda2e240baec9fd") { id username email birthdate registeredAt } }',
+      'mutation { deleteById(id: "65dfa2ed403abded4f2565f0") { id username email birthdate registeredAt } }',
   },
   {
     label: 'Add a random new user',
@@ -48,7 +48,22 @@ const queries = [
   {
     label: 'Query with illegal character',
     query:
-      'query { getUserById(id: "65cdf731aeda2e240baec9fd" OR 1=1) { id username email } }',
+      'query { getUserById(id: "65dfa2ed403abded4f2565f0" OR 1=1) { id username email } }',
+  },
+  {
+    label: 'Test-Full',
+    query:
+      'query { getUserById (id: "65ce7765820192dc7a289543") { id username email birthdate registeredAt } }',
+  },
+  {
+    label: 'Test-Part-1',
+    query:
+      'query { getUserById (id: "65ce7765820192dc7a289543") { id username } }',
+  },
+  {
+    label: 'Test-Part-2',
+    query:
+      'query { getUserById (id: "65ce7765820192dc7a289543") { email birthdate registeredAt } }',
   },
 ];
 
