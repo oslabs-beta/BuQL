@@ -55,9 +55,10 @@ function BarChart({rawData}) {
               return '#faefdf'; // bun color
             case 'mutation':
               return 'purple';
-            case 'partial':
-              return 'pink';
             default:
+              if (source.includes('%')) {
+                return 'pink';
+              }
               return 'black';
           }
         }),
@@ -92,7 +93,7 @@ function BarChart({rawData}) {
       },
       // y-axis styles
       y: {
-        grid:{
+        grid: {
           color: 'hotpink',
         },
         ticks: {

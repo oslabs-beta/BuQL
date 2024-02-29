@@ -84,7 +84,7 @@ function QueryForm() {
           } else if (nonCache === 0) {
             source = 'cache';
           } else {
-            source = 'partial';
+            source = `${(cacheHits / (nonCache + cacheHits)) * 100}% from cache`;
           }
         }
         // otherwise source is 'mutation'
