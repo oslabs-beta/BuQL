@@ -1,0 +1,46 @@
+{
+  "name": "vite-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bunx --bun vite & bun --hot run ./server/index.js",
+    "backend": "bun --hot run ./server/index.js",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "chart.js": "^4.4.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.8.1",
+    "graphql-depth-limit": "1.1.0",
+    "graphql-http": "^1.22.0",
+    "graphql-validation-complexity": "^0.4.2",
+    "ioredis": "^5.3.2",
+    "mongoose": "^8.1.1",
+    "path": "^0.12.7",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-json-pretty": "^2.2.0",
+    "react-router-dom": "^6.22.1",
+    "react-table": "^7.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "vite": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
