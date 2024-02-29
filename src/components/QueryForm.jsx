@@ -83,9 +83,9 @@ function QueryForm() {
           } else if (nonCache === 0) {
             source = 'cache';
           } else {
-            source = `${
+            source = `${Math.round(
               (cacheHits / (nonCache + cacheHits)) * 100
-            }% from cache`;
+            )}% from cache`;
           }
         }
         // otherwise source is 'mutation'
