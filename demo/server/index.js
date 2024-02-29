@@ -1,34 +1,28 @@
 // typical imports
 import express from 'express';
-import cors from 'cors';
 const app = express();
-const port = 8080;
+const port = Bun.env.PORT;
 
 // import graphql and schema
 import {graphqlHTTP} from 'express-graphql';
 import {schema} from './schema/schema';
 
-// configure cors, json parsing, url encoding
-const corsOptions = {
-  origin: '*',
-  credentials: true,
-  optionalSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
 app.use(express.json());
 
 // import controllers
 import buql from './controllers/buql';
-import securityController from './controllers/securityController';
-// const rules = /* did the user invoke with custom rules ? RulesCreator(things, user, passes, in) : */RulesCreator();
+// import { buql, security } from '@buql/buql'
+// const buqlCache = buql.cache;
+const buqlClear = buql.clearCache;
+import security from './controllers/security';
+const buqlSecurity = security.checkChars;
 
-// Route to Buql to check if it's in the cache
-app.use('/buql', securityController.checkChars, buql.cache, (req, res) => {
+app.use('/buql', buqlSecurity, buql.cache, (req, res) => {
+
   return res.status(200).send(res.locals.response);
 });
 
-// Clear cache route
-app.use('/clearCache', buql.clearCache, (req, res) => {
+app.use('/clearCache', buqlClear, (req, res) => {
   return res.status(200).send('cache cleared');
 });
 
