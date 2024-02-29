@@ -5,8 +5,8 @@ const app = express();
 const port = 8080;
 
 // import graphql and schema
-import { graphqlHTTP } from 'express-graphql';
-import { schema } from './schema/schema';
+import {graphqlHTTP} from 'express-graphql';
+import {schema} from './schema/schema';
 
 // configure cors, json parsing, url encoding
 const corsOptions = {
@@ -23,7 +23,7 @@ import securityController from './controllers/securityController';
 // const rules = /* did the user invoke with custom rules ? RulesCreator(things, user, passes, in) : */RulesCreator();
 
 // Route to Buql to check if it's in the cache
-app.use('/buql', buql.cache, (req, res) => {
+app.use('/buql', securityController.checkChars, buql.cache, (req, res) => {
   return res.status(200).send(res.locals.response);
 });
 
@@ -35,7 +35,6 @@ app.use('/clearCache', buql.clearCache, (req, res) => {
 // Standalone graphql route
 app.use(
   '/graphql',
-  securityController.checkChars,
   graphqlHTTP({
     schema,
     graphiql: true,
@@ -50,7 +49,7 @@ app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught an unknown middlware error',
     status: 500,
-    message: { err: 'An error occurred' },
+    message: {err: 'An error occurred'},
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj);
