@@ -6,5 +6,6 @@ function Demo(){
             <h1>Demo Gif goes here!</h1>
         </div>
     );
-};
+}
+
 export default Demo;
