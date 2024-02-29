@@ -38,9 +38,9 @@ function App() {
             <img src='../public/github-mark.svg' className='sociallogo' alt='GitHub'/>
           </a>
         </nav>
-        <img className='logo' src='/BuQL.png'></img>
+        <img className='logo' src='../public/BuQL.png'></img>
         <h1 className='buql' onClick={() => setCurrentPage('home')} style={{cursor: "default"}}>BuQL</h1>
-        <img className='logo' src='/BuQL.png'></img>
+        <img className='logo' src='../public/BuQL.png'></img>
         <nav id='pages'>
           <button onClick={() => setCurrentPage('demo')} style={{cursor: "default"}}> Demo </button>
           <button onClick={() => setCurrentPage('about')} style={{cursor: "default"}}> About Us </button>
