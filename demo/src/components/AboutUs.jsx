@@ -45,7 +45,8 @@ function AboutUs(){
                             <img src='../assets/linkedin2.svg' className='sociallogo' alt='Linkedin'/> 
                         </a>
                         <a>
-                            <Github href='https://github.com/Joseph-McGarry' style={{cursor: 'default'}} className='sociallogo' alt='GitHub'/>
+                            {/* <Github href='https://github.com/Joseph-McGarry' style={{cursor: 'default'}} className='sociallogo' alt='GitHub'/> */}
+                            <Github />
                         </a>
                     </div>
                 </div>
