@@ -206,6 +206,8 @@ At the end of the day, we welcome any and all ideas. Get creative!
 
 <h2 href="#Info">Further Info</h2>
 Feel free to dive deeper into BuQL itself...
+
+<br>
 <div width="200px" style="text-align: center;">
   <a href="MEDIUM-ARTICLE-GOES-HERE.COM"> <img alt="medium" src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white"/></a>
   <a href="https://www.linkedin.com/in/buql-osp-a43b892b6/"> <img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/> </a>
@@ -213,26 +215,29 @@ Feel free to dive deeper into BuQL itself...
 
 <br>
 ...or reach out to the team:
-<table style="text-align: center;">
-  <tr>
-      <td valign="bottom"><h3 style="text-align: center;">Dylan Briar</h3></td>
-      <td valign="bottom"><h3 style="text-align: center;">Jacob Diamond</h3></td>
-      <td valign="bottom"><h3 style="text-align: center;">Julien Kerekes</h3></td>
-      <td valign="bottom"><h3 style="text-align: center;">Joseph McGarry</h3></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;"><a href="https://www.linkedin.com/in/dylanbriar/"><img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a></td>
-    <td style="text-align: center;"><a href="https://www.linkedin.com/in/jake-diamond5/"><img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a></td>
-    <td style="text-align: center;"><a href="https://www.linkedin.com/in/julien-kerekes/"><img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a></td>
-    <td style="text-align: center;"><a href="https://www.linkedin.com/in/joseph-mcgarry/"><img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a></td>
-  </tr>
-  <tr>
-    <td style="text-align: center;"><a href="https://github.com/dylanbriar"><img alt="GitHub" src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/></a></td>
-    <td style="text-align: center;"><a href="https://github.com/jldiamond"><img alt="GitHub" src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/></a></td>
-    <td style="text-align: center;"><a href="https://github.com/julien-kerekes"><img alt="GitHub" src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white/"></a></td>
-    <td style="text-align: center;"><a href="https://github.com/Joseph-McGarry"><img alt="GitHub" src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/></a></td>
-  </tr>
-</table>
+
+<div style="text-align: center;">
+  <table style="text-align: center;">
+    <tr>
+        <td valign="bottom"><h3 style="text-align: center;">Dylan Briar</h3></td>
+        <td valign="bottom"><h3 style="text-align: center;">Jacob Diamond</h3></td>
+        <td valign="bottom"><h3 style="text-align: center;">Julien Kerekes</h3></td>
+        <td valign="bottom"><h3 style="text-align: center;">Joseph McGarry</h3></td>
+    </tr>
+    <tr>
+      <td style="text-align: center;"><a href="https://www.linkedin.com/in/dylanbriar/"><img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a></td>
+      <td style="text-align: center;"><a href="https://www.linkedin.com/in/jake-diamond5/"><img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a></td>
+      <td style="text-align: center;"><a href="https://www.linkedin.com/in/julien-kerekes/"><img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a></td>
+      <td style="text-align: center;"><a href="https://www.linkedin.com/in/joseph-mcgarry/"><img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a></td>
+    </tr>
+    <tr>
+      <td style="text-align: center;"><a href="https://github.com/dylanbriar"><img alt="GitHub" src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/></a></td>
+      <td style="text-align: center;"><a href="https://github.com/jldiamond"><img alt="GitHub" src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/></a></td>
+      <td style="text-align: center;"><a href="https://github.com/julien-kerekes"><img alt="GitHub" src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white/"></a></td>
+      <td style="text-align: center;"><a href="https://github.com/Joseph-McGarry"><img alt="GitHub" src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/></a></td>
+    </tr>
+  </table>
+</div>
 
 <div style="text-align: center;">
 <br> Send something to the whole team here!
