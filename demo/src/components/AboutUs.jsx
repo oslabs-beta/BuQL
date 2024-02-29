@@ -33,7 +33,7 @@ function AboutUs(){
                             <img src='../../public/linkedin2.svg' className='sociallogo' alt='Linkedin'/> 
                         </a>
                         <a href='https://github.com/julien-kerekes' style={{cursor: 'default'}}>
-                            <img src='../../public/github-mark.svg' className='sociallogo' alt='GitHub'/>
+                            <img href='../assets/github-mark.svg' className='sociallogo' alt='GitHub'/>
                         </a>
                     </div>
                 </div>
@@ -44,7 +44,8 @@ function AboutUs(){
                             <img src='../assets/linkedin2.svg' className='sociallogo' alt='Linkedin'/> 
                         </a>
                         <a href='https://github.com/Joseph-McGarry' style={{cursor: 'default'}}>
-                            <img src='../assets/github-mark.svg' className='sociallogo' alt='GitHub'/>
+                            <link rel="icon" type="image/png" href="./demo/src/assets/github-mark.svg" />
+                            {/* <img src='../assets/github-mark.svg' className='sociallogo' alt='GitHub'/> */}
                         </a>
                     </div>
                 </div>
