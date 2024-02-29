@@ -117,16 +117,11 @@ $ proto install bun
  ```
  $ bun install ioredis
  ```
-- Import ioredis at the top of your main file, the same one as BuQL.
-```javascript
-import { Redis } from 'ioredis';
-```
-- Start redis server 
-```
-$ redis-server
-```
+- Start redis server
 
-Once Redis is installed, your server should reflect the below:
+  - For starting the redis server, check out <a href="https://redis.io/docs/install/install-redis/">the official documentation</a> and follow the directions for your OS!
+
+Once installed, your server should reflect the below:
 
 - Note: The default port is `6379`
 
@@ -193,12 +188,10 @@ const UserType = new GraphQLObjectType({
 
 
 From its conception, BuQL was developed to be an open-source product with a never ending journey to perfection! We gladly welcome any and all contributions, whether through iterations, additions, or general feedback! Here are some features we would love to see: 
+- Client-side caching
 - More in depth security
 - More comprehensive testing
-- Rejected mutation queries that clear the cache
-- Removing the bug of caching bad queries
 - The ability to handle nested queries
-- A more detailed chart, with items such as average time to query cache vs database
 - A more agnostic, unopinionated approach, allowing for use beyond just the Express framework.
 <br>
 
