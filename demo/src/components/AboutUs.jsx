@@ -1,4 +1,5 @@
 import './AboutUs.css'
+import Github from "../assets/github-mark.svg";
 
 function AboutUs(){
     return(
@@ -43,8 +44,8 @@ function AboutUs(){
                         <a href='https://www.linkedin.com/in/joseph-mcgarry/' style={{cursor: 'default'}}>
                             <img src='../assets/linkedin2.svg' className='sociallogo' alt='Linkedin'/> 
                         </a>
-                        <a href='https://github.com/Joseph-McGarry' style={{cursor: 'default'}}>
-                            <img src='../assets/github-mark.svg' className='sociallogo' alt='GitHub'/>
+                        <a>
+                            <Github href='https://github.com/Joseph-McGarry' style={{cursor: 'default'}} className='sociallogo' alt='GitHub'/>
                         </a>
                     </div>
                 </div>
