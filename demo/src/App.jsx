@@ -35,7 +35,7 @@ function App() {
             <img src='/medium.svg' className='sociallogo' alt='Medium'/>
           </a>
           <a href='https://github.com/oslabs-beta/BuQL' style={{cursor: 'default'}}>
-            <img src='/github-mark.svg' className='sociallogo' alt='GitHub'/>
+            <img src='../public/github-mark.svg' className='sociallogo' alt='GitHub'/>
           </a>
         </nav>
         <img className='logo' src='/BuQL.png'></img>
