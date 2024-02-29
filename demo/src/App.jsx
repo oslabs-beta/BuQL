@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import './App.css';
-import QueryForm from './components/QueryForm';
 import Home from './components/Home.jsx';
 import AboutUs from './components/AboutUs.jsx';
+import Demo from './components/Demo.jsx'
 
 function App() {
    // State to track the current page
@@ -12,7 +12,7 @@ function App() {
    const renderPage = () => {
      switch (currentPage) {
        case 'demo':
-         return <QueryForm />;
+         return <Demo />;
        case 'about':
          return <AboutUs />;
        default:
