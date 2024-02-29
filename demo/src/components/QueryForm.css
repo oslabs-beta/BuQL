@@ -26,7 +26,6 @@
   display: flex;
   padding: 10px;
   gap: 40px;
-  
 }
 
 #querybuttons {
@@ -58,7 +57,7 @@
 #querytable {
   border-collapse: collapse;
   width: 660px;
-  height: 460px;
+  height: 410px;
   table {
     width: 100%;
     margin-right: 0;
@@ -95,10 +94,12 @@
 #barchart {
   padding-top: 10px;
   color: white;
-  height: 450px;
+  height: 400px;
 
   canvas {
+    margin-top: 20px;
     padding: 10px;
+    height: 350px !important;
   }
 }
 

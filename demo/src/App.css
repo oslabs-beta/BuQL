@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-
 body {
   font-family: 'Nunito', sans-serif;
   font-optical-sizing: auto;
@@ -8,7 +6,7 @@ body {
 
 #root {
   max-width: 1280px;
-  min-height: 100%;  
+  min-height: 100%;
   /* margin was 100px */
   margin: 0px auto 0px;
   padding: 2rem;
@@ -60,7 +58,9 @@ body {
   border-bottom: 10px solid #f077bc;
   /* was 'pink' */
   gap: 20px;
-
+  h1 {
+    font-size: 52px;
+  }
 }
 
 #header,
@@ -77,8 +77,7 @@ body {
   box-shadow: 0px 0px 20px 1px #f077bc;
 }
 
-
-#socials{
+#socials {
   position: fixed;
   left: 0;
   top: 0;
@@ -90,7 +89,7 @@ body {
   line-height: 80px;
 }
 
-.sociallogo:hover{
+.sociallogo:hover {
   /* border-color: #646cff; */
   /* color: #faefdf; */
   /* box-shadow: 0px 0px 7px 3px #f077bc; */
@@ -101,7 +100,8 @@ body {
   height: 32px;
   width: 32px;
   /* filter to make svg logos white */
-  filter: invert(100%) sepia(13%) saturate(7500%) hue-rotate(200deg) brightness(112%) contrast(110%);
+  filter: invert(100%) sepia(13%) saturate(7500%) hue-rotate(200deg)
+    brightness(112%) contrast(110%);
 }
 
 #pages {
@@ -120,14 +120,13 @@ body {
   /* filter: drop-shadow(0px 0px 20px white) */
 }
 
-
 #header h1,
 #footer h2 {
   margin: 0;
   line-height: 80px;
   /* color: blanchedalmond; */
   color: #faefdf;
-  
+  font-family: 'Anta', sand-serif;
 }
 
 #footer {

@@ -4,8 +4,8 @@ const app = express();
 const port = Bun.env.PORT;
 
 // import graphql and schema
-import { graphqlHTTP } from 'express-graphql';
-import { schema } from './schema/schema';
+import {graphqlHTTP} from 'express-graphql';
+import {schema} from './schema/schema';
 
 app.use(express.json());
 
@@ -35,7 +35,7 @@ app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught an unknown middlware error',
     status: 500,
-    message: { err: 'An error occurred' },
+    message: {err: 'An error occurred'},
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj);

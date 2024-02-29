@@ -58,7 +58,6 @@ function QueryForm() {
         body: JSON.stringify({query: selectedQuery.query}),
       });
       const responseObj = await buqlResponse.json();
-
       // grab timestamp of when the function finished
       const timeEnd = Date.now();
       // then calculate the time the function ran for in ms
@@ -84,7 +83,9 @@ function QueryForm() {
           } else if (nonCache === 0) {
             source = 'cache';
           } else {
-            source = 'partial';
+            source = `${
+              (cacheHits / (nonCache + cacheHits)) * 100
+            }% from cache`;
           }
         }
         // otherwise source is 'mutation'
@@ -116,6 +117,7 @@ function QueryForm() {
       ]);
     } catch (error) {
       console.error('Error:', error);
+      setQueryResponse('Query rejected due to security concerns.');
     }
   };
 
@@ -129,7 +131,12 @@ function QueryForm() {
           'Content-Type': 'application/json',
         },
       });
-      alert('The cache has been cleared!');
+
+      setQueryResponse('Cache has been cleared!');
+      const showClearCache = () => {
+        setQueryResponse('');
+      };
+      setTimeout(showClearCache, 2000);
     } catch (error) {
       console.error('Error:', error);
     }
