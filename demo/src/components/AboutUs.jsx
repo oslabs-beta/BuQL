@@ -22,7 +22,7 @@ function AboutUs(){
                             <img src='../../public/linkedin2.svg' className='sociallogo' alt='Linkedin'/> 
                         </a>
                         <a href='https://github.com/jldiamond' style={{cursor: 'default'}}>
-                            <img src='../../public/github-mark.svg className='sociallogo' alt='GitHub'/>
+                            <img src='../../public/github-mark.svg' className='sociallogo' alt='GitHub'/>
                         </a>
                     </div>
                 </div>
