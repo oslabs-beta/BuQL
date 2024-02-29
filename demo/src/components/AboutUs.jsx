@@ -1,5 +1,4 @@
 import './AboutUs.css'
-import Github from "../assets/github-mark.svg";
 
 function AboutUs(){
     return(
@@ -44,9 +43,6 @@ function AboutUs(){
                         <a href='https://www.linkedin.com/in/joseph-mcgarry/' style={{cursor: 'default'}}>
                             <img src='../assets/linkedin2.svg' className='sociallogo' alt='Linkedin'/> 
                         </a>
-                        <div>
-                            <Github />
-                        </div>
                     </div>
                 </div>
             </div>
