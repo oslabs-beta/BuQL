@@ -26,13 +26,13 @@ function App() {
       <div id='header'>
         <nav id='socials'>
           <a href='https://twitter.com/_BuQL_?t=ZGTgImK-03uYMEzvVCeuQg&s=09&fbclid=IwAR3QYlHvSHr7gE7haPDMOHG_UiXAZf1i-gFw25KKLJgDRncKCGnTAZ-1K5E' style={{cursor: 'default'}}>
-            <img src='/twitter2.svg' className='sociallogo' alt='Twitter'/>
+            <img src='../public/twitter2.svg' className='sociallogo' alt='Twitter'/>
           </a>
           <a href='https://www.linkedin.com/in/buql-osp-a43b892b6/' style={{cursor: 'default'}}>
-            <img src='/linkedin2.svg' className='sociallogo' alt='Linkedin'/> {/* change this link when the org is created */}
+            <img src='../public/linkedin2.svg' className='sociallogo' alt='Linkedin'/> {/* change this link when the org is created */}
           </a>
           <a href='https://www.bobdylan.com/' style={{cursor: 'default'}}>
-            <img src='/medium.svg' className='sociallogo' alt='Medium'/>
+            <img src='../public/medium.svg' className='sociallogo' alt='Medium'/>
           </a>
           <a href='https://github.com/oslabs-beta/BuQL' style={{cursor: 'default'}}>
             <img src='../public/github-mark.svg' className='sociallogo' alt='GitHub'/>
