@@ -107,6 +107,7 @@
 @media screen and (max-width: 1000px) {
   #querylabels,
   #queryboxes,
+
   #queryanalytics {
     flex-direction: column;
   }
