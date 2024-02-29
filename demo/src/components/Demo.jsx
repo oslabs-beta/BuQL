@@ -9,11 +9,4 @@ function Demo(){
         </div>
     );
 };
-
-
-
-
-
-
-
 export default Demo;
