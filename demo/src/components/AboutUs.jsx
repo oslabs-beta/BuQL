@@ -41,10 +41,10 @@ function AboutUs(){
                     <h2>Joseph McGarry</h2>
                     <div id='linked-git'>
                         <a href='https://www.linkedin.com/in/joseph-mcgarry/' style={{cursor: 'default'}}>
-                            <img src='../../public/linkedin2.svg' className='sociallogo' alt='Linkedin'/> 
+                            <img src='../assets/linkedin2.svg' className='sociallogo' alt='Linkedin'/> 
                         </a>
                         <a href='https://github.com/Joseph-McGarry' style={{cursor: 'default'}}>
-                            <img src='../../public/github-mark.svg' className='sociallogo' alt='GitHub'/>
+                            <img src='../assets/github-mark.svg' className='sociallogo' alt='GitHub'/>
                         </a>
                     </div>
                 </div>
