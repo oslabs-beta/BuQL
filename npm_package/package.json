@@ -1,7 +1,11 @@
 {
   "name": "@buql/buql",
   "private": false,
-  "version": "0.1.4",
+  "version": "0.2.0",
   "type": "module",
-  "main": "buql.js"
+  "main": "buql.js",
+  "dependencies": {
+    "graphql": "^16.8.1",
+    "ioredis": "^5.3.2"
+  }
 }
