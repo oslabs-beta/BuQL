@@ -1,0 +1,7 @@
+{
+  "name": "@buql/buql",
+  "private": false,
+  "version": "0.1.4",
+  "type": "module",
+  "main": "buql.js"
+}
