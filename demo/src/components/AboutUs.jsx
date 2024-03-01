@@ -4,7 +4,7 @@ function AboutUs(){
     return(
     <div id='aboutUs'>
             <div className="team-container">
-                <container className="team-member">
+                <div className="team-member">
                     <h2 >Dylan Compton</h2>
                     <div id='linked-git'>
                         <a href='https://www.linkedin.com/in/dylanbriar/' style={{cursor: 'default'}}>
@@ -14,7 +14,7 @@ function AboutUs(){
                             <img src='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' type='image/png'/>
                         </a>
                     </div>
-                </container>
+                </div>
                 <div className="team-member">
                     <h2>Jake Diamond</h2>
                     <div id='linked-git'>

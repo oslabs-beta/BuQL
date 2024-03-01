@@ -29,13 +29,13 @@ function App() {
             <img src='https://i.imgur.com/QhtSaWx.png' type='image/png' className='sociallogo' alt='Twitter' />
           </a>
           <a href='https://www.linkedin.com/company/buql/' style={{cursor: 'default'}}>
-            <img src='https://i.imgur.com/VHVUbE2.png' className='sociallogo' id='twitter' alt='Linkedin' type='image/png'/>
+            <img src='https://i.imgur.com/VHVUbE2.png' className='sociallogo whitefilter' alt='Linkedin' type='image/png'/>
           </a>
           <a
             href='https://medium.com/@dylan.e.briar/looking-for-a-graphql-caching-solution-in-bun-its-time-to-buql-up-b2742f07847f'
             style={{cursor: 'default'}}
           >
-            <img src='https://i.imgur.com/Kjqw8Ry.png' className='sociallogo' alt='Medium' type='image/png'/>
+            <img src='https://i.imgur.com/XGJ3EYO.png' className='sociallogo whitefilter' alt='Medium' type='image/png'/>
           </a>
           <a href='https://github.com/oslabs-beta/BuQL' style={{cursor: 'default'}}>
             <img src='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' type='image/png'/>
