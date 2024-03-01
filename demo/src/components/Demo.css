@@ -1,14 +1,17 @@
-#demo{
-    margin-top: 100px;
-    display: flex;
-    width: 500px;
-    /* justify-content: flex-start; */
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    background-color: rgb(28, 28, 28);
-    box-shadow: 0px 0px 10px 3px pink;
-    border-radius: 5px;
-    margin-bottom: 100px;
-    }
-  
+#demo {
+  margin-top: 100px;
+  display: flex;
+  /* justify-content: flex-start; */
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  background-color: rgb(28, 28, 28);
+  box-shadow: 0px 0px 10px 3px pink;
+  border-radius: 5px;
+  margin-bottom: 100px;
+}
+.demovid {
+  width: 80%;
+  border: 2px solid pink;
+  border-radius: 10px;
+}
