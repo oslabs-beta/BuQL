@@ -26,10 +26,10 @@ function App() {
       <div id='header'>
         <nav id='socials'>
           <a href='https://twitter.com/_BuQL_' style={{cursor: 'default'}}>
-            <img src='/twitter2.svg' className='sociallogo' alt='Twitter' />
+            <img src='https://i.imgur.com/QhtSaWx.png' type='image/png' className='sociallogo' alt='Twitter' />
           </a>
           <a href='https://www.linkedin.com/company/buql/' style={{cursor: 'default'}}>
-            <img src='https://i.imgur.com/tKZBw1E.png' className='sociallogo' alt='Linkedin' type='image/png'/>
+            <img src='https://i.imgur.com/VHVUbE2.png' className='sociallogo' id='twitter' alt='Linkedin' type='image/png'/>
           </a>
           <a
             href='https://medium.com/@dylan.e.briar/looking-for-a-graphql-caching-solution-in-bun-its-time-to-buql-up-b2742f07847f'
