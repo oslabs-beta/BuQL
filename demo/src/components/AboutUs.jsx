@@ -11,7 +11,7 @@ function AboutUs(){
                             <img type='image/png' src='https://i.imgur.com/tKZBw1E.png' className='sociallogo' alt='Linkedin'/> 
                         </a>
                         <a href='https://github.com/dylanbriar' style={{cursor: 'default'}}>
-                            <link type='image/png' href='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' />
+                            <img src='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' type='image/png'/>
                         </a>
                     </div>
                 </container>
@@ -22,7 +22,7 @@ function AboutUs(){
                             <img type='image/png' src='https://i.imgur.com/tKZBw1E.png' className='sociallogo' alt='Linkedin'/> 
                         </a>
                         <a href='https://github.com/jldiamond' style={{cursor: 'default'}}>
-                            <link type='image/png' href='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' />
+                            <img src='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' type='image/png'/>
                         </a>
                     </div>
                 </div>
@@ -33,7 +33,7 @@ function AboutUs(){
                             <img type='image/png' src='https://i.imgur.com/tKZBw1E.png' className='sociallogo' alt='Linkedin'/> 
                         </a>
                         <a href='https://github.com/julien-kerekes' style={{cursor: 'default'}}>
-                            <link type='image/png' href='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' />
+                            <img src='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' type='image/png'/>
                         </a>
                     </div>
                 </div>
@@ -42,6 +42,9 @@ function AboutUs(){
                     <div id='linked-git'>
                         <a href='https://www.linkedin.com/in/joseph-mcgarry/' style={{cursor: 'default'}}>
                             <img type='image/png' src='https://i.imgur.com/tKZBw1E.png' className='sociallogo' alt='Linkedin'/> 
+                        </a>
+                        <a href='https://github.com/Joseph-McGarry' style={{cursor: 'default'}}>
+                            <img src='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' type='image/png'/>
                         </a>
                     </div>
                 </div>

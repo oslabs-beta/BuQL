@@ -49,9 +49,9 @@ function App() {
           <button onClick={() => setCurrentPage('about')} style={{cursor: 'default'}}>About Us</button>
         </nav>
       </div>
-      <div id='home'>
+      <div id='page'>
         {renderPage()}
-        </div>
+      </div>
       <div id='footer'>
         <h2>Open Source & MIT Licensed</h2>
       </div>
