@@ -175,14 +175,43 @@ const UserType = new GraphQLObjectType({
 ```
 <br>
 
-### 6. Pass the redis client & security options into the BuQL constructor!
+### 6. Get to Work!
 
-- [directions needed]
+With everything in place, you’re all BuQLed in! Now you can set up your routes with BuQL.
 
+For instance, in our demo’s frontend we wrote:
 
-### 7. Get to Work!
+```javascript
+const buqlResponse = await fetch('http://localhost:8080/buql', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({query: selectedQuery.query}),
+});
+const responseObj = await buqlResponse.json();
+let { source, cacheHits, nonCache, response } = responseObj;
+```
+From there, it travels to the backend, which has this code,
 
-- [example code for how the client would use BuQL]
+```javascript
+app.use('/buql', buql.security, buql.cache, (req, res) => {
+  return res.status(200).send(res.locals.response);
+});
+
+app.use('/clearCache', buql.clearCache, (req, res) => {
+  return res.status(200).send('cache cleared');
+});
+
+// Standalone graphql route
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+  })
+);
+```
 
 <h2 href="#Contribute">Becoming a BuQLer</h2>
 
@@ -202,7 +231,8 @@ Feel free to dive deeper into BuQL itself...
 
 <br>
 <div width="200px" style="text-align: center;">
-  <a href="MEDIUM-ARTICLE-GOES-HERE.COM"> <img alt="medium" src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white"/></a>
+  <a href="https://medium.com/@dylan.e.briar/looking-for-a-graphql-caching-solution-in-bun-its-time-to-buql-up-b2742f07847f"> <img alt="medium" src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white"/></a>
+  <a href=""><img alt="website" src="https://img.shields.io/badge/Our_Website-deeppink?style=for-the-badge"/></a>
   <a href="https://www.linkedin.com/in/buql-osp-a43b892b6/"> <img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/> </a>
 </div>
 
