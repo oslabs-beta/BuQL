@@ -44,10 +44,6 @@ Welcome to BuQL, the harmonizing of Bun and GraphQL, with ioredis included for t
 
 Optimized response times via enhanced runtime speeds. Lightweight and flexible. Straightforward in use, elegant in performance. Keep extremities in at all times, it's time to BuQL up!
 
-<h2 href="#Execution">From Start to Finish</h2>
-
-[thread of execution explanation]
-
 <h2 href="#Using">BuQLing Up</h2>
 
 
@@ -220,8 +216,6 @@ app.use(
 
 From its conception, BuQL was developed to be an open-source product with a never ending journey to perfection! We gladly welcome any and all contributions, whether through iterations, additions, or general feedback! Here are some features we would love to see: 
 - Client-side caching
-- More in depth security
-- More comprehensive testing
 - The ability to handle nested queries
 - A more agnostic, unopinionated approach, allowing for use beyond just the Express framework.
 <br>
@@ -234,7 +228,7 @@ Feel free to dive deeper into BuQL itself...
 <br>
 <div width="200px" style="text-align: center;">
   <a href="https://medium.com/@dylan.e.briar/looking-for-a-graphql-caching-solution-in-bun-its-time-to-buql-up-b2742f07847f"> <img alt="medium" src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white"/></a>
-  <a href=""><img alt="website" src="https://img.shields.io/badge/Our_Website-deeppink?style=for-the-badge"/></a>
+  <a href="https://www.buql.dev"><img alt="website" src="https://img.shields.io/badge/Our_Website-deeppink?style=for-the-badge"/></a>
   <a href="https://www.linkedin.com/in/buql-osp-a43b892b6/"> <img alt="linked" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/> </a>
 </div>
 
