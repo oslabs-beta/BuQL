@@ -11,6 +11,7 @@ app.use(express.json());
 
 // import buql
 import buql from '@buql/buql';
+//
 
 app.use('/buql', buql.security, buql.cache, (req, res) => {
   return res.status(200).send(res.locals.response);
