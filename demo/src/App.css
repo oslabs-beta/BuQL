@@ -7,7 +7,6 @@ body {
 #root {
   max-width: 1280px;
   min-height: 100%;
-  /* margin was 100px */
   margin: 0px auto 0px;
   padding: 2rem;
   text-align: center;
@@ -56,7 +55,7 @@ body {
   position: fixed;
   text-align: center;
   border-bottom: 10px solid #f077bc;
-  /* was 'pink' */
+  /* previously 'pink' */
   h1 {
     font-size: 52px;
   }
@@ -67,8 +66,7 @@ body {
   display: flex;
   margin: 0;
   left: 0;
-  background-color: rgb(26, 26, 26);
-  /* background-color: #faefdf; */
+  background-color: rgb(26, 26, 26);  
   width: 100%;
   height: 80px;
   justify-content: center;
@@ -80,19 +78,11 @@ body {
   position: fixed;
   left: 0;
   top: 0;
-  /* top right bottom left */
   margin: 25px 0 auto 15px;
   display: flex;
-  flex-direction: row; /* set logos side-by-side */
+  flex-direction: row;
   gap: 15px;
   line-height: 80px;
-}
-
-.sociallogo:hover {
-  /* border-color: #646cff; */
-  /* color: #faefdf; */
-  /* box-shadow: 0px 0px 7px 3px #f077bc; */
-  filter: drop-shadow(0px 0px 5px white);
 }
 
 .sociallogo {
@@ -100,19 +90,20 @@ body {
   width: 32px;
 }
 
-/* filter to make svg logos white */
+/* filter to make logos white */
 .whitefilter {
   filter: invert(100%) sepia(13%) saturate(7500%) hue-rotate(200deg)
     brightness(112%) contrast(110%);
 }
 
-/* the twitter and github logos start off as white by default, as opposed to the medium/ */
+/* the github logo is white by default, as opposed to the other ones */
 .gitlogo:hover {
-  /* border-color: #646cff; */
-  /* color: #faefdf; */
-  /* box-shadow: 0px 0px 7px 3px #f077bc; */
   filter: invert(100%) sepia(13%) saturate(7500%) hue-rotate(200deg)
-    brightness(112%) contrast(110%) drop-shadow(0px 0px 5px white);
+  brightness(112%) contrast(110%) drop-shadow(0px 0px 5px white);
+}
+
+.sociallogo:hover {
+  filter: drop-shadow(0px 0px 5px white);
 }
 
 #pages {
@@ -122,8 +113,8 @@ body {
   margin-top: 30px;
   margin-right: 15px;
   display: flex;
-  flex-direction: row; /* set buttons side-by-side */
-  align-items: flex-end; /* align buttons to the right */
+  flex-direction: row;
+  align-items: flex-end;
   gap: 10px;
 }
 .buql:hover {
@@ -135,7 +126,6 @@ body {
 #footer h2 {
   margin: 0;
   line-height: 80px;
-  /* color: blanchedalmond; */
   color: #faefdf;
   font-family: 'Anta', sand-serif;
 }
@@ -143,8 +133,8 @@ body {
 #footer {
   position: fixed;
   border-top: 5px solid #f077bc;
+  /* previously 'pink' */
   bottom: 0;
-  /* was 'pink' */
   margin-top: auto;
   margin-bottom: 0;
 }
@@ -205,15 +195,13 @@ body {
     margin-left: auto;
     margin-right: 0;
     padding-right: 10px;
-    /* margin-top: 1px; */
     padding-top: 12px;
   }
 
   #socials a,
   #pages button {
-    margin: 10px 0; /* Increase vertical spacing between items for easier navigation */
-
-    text-align: center; /* Ensure text within buttons and links is centered */
+    margin: 10px 0;
+    text-align: center;
     align-items: center;
     justify-content: center;
   }
