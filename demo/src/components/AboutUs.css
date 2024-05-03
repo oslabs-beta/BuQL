@@ -8,8 +8,23 @@
 .team-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Creates 2 columns */
-    gap: 100px; /* Space between grid items */
+    padding: 20px;
+    gap: 50px; /* Space between grid items */
+    margin-top: 50px;
+    margin-bottom: 50px;
     /* padding: 20px; */
+}
+
+@media (max-width: 900px) {
+    .team-container {
+        grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns */
+    }
+}
+
+@media (max-width: 600px) {
+    .team-container {
+        grid-template-columns: 1fr; /* Switch to 1 column */
+    }
 }
 
 .team-member {
