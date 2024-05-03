@@ -1,4 +1,4 @@
-#home{
+#home {
   margin-top: 100px;
   display: flex;
   width: 500px;
@@ -11,5 +11,16 @@
   box-shadow: 0px 0px 10px 3px pink;
   border-radius: 5px;
   margin-bottom: 100px;
-  }
+}
 
+@media (max-width: 600px) {
+  #home {
+    width: 90%; /* Adjust width to 90% of the viewport */
+  }
+}
+
+@media (max-width: 400px) {
+  #home {
+    width: 85%; /* Further reduce the width for smaller screens */
+  }
+}
