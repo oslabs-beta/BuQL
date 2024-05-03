@@ -57,7 +57,6 @@ body {
   text-align: center;
   border-bottom: 10px solid #f077bc;
   /* was 'pink' */
-  gap: 20px;
   h1 {
     font-size: 52px;
   }
@@ -99,11 +98,21 @@ body {
 .sociallogo {
   height: 32px;
   width: 32px;
-  /* filter to make svg logos white */
 }
+
+/* filter to make svg logos white */
 .whitefilter {
   filter: invert(100%) sepia(13%) saturate(7500%) hue-rotate(200deg)
     brightness(112%) contrast(110%);
+}
+
+/* the twitter and github logos start off as white by default, as opposed to the medium/ */
+.gitlogo:hover {
+  /* border-color: #646cff; */
+  /* color: #faefdf; */
+  /* box-shadow: 0px 0px 7px 3px #f077bc; */
+  filter: invert(100%) sepia(13%) saturate(7500%) hue-rotate(200deg)
+    brightness(112%) contrast(110%) drop-shadow(0px 0px 5px white);
 }
 
 #pages {
@@ -138,4 +147,74 @@ body {
   /* was 'pink' */
   margin-top: auto;
   margin-bottom: 0;
+}
+
+#title {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  text-align: center;
+  justify-items: center;
+  justify-content: center;
+  h1 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+#navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  #header {
+    padding-bottom: 20px;
+  }
+  #title {
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    h1 {
+      font-size: 2.5em;
+    }
+  }
+
+  #navbar {
+    left: auto;
+    right: auto;
+  }
+  #socials {
+    margin-left: 0;
+    margin-right: auto;
+    padding-left: 10px;
+  }
+  .sociallogo {
+    height: 1.5em;
+    width: 1.5em;
+  }
+
+  #pages {
+    button {
+      padding: 5px;
+    }
+    margin-left: auto;
+    margin-right: 0;
+    padding-right: 10px;
+    /* margin-top: 1px; */
+    padding-top: 12px;
+  }
+
+  #socials a,
+  #pages button {
+    margin: 10px 0; /* Increase vertical spacing between items for easier navigation */
+
+    text-align: center; /* Ensure text within buttons and links is centered */
+    align-items: center;
+    justify-content: center;
+  }
 }

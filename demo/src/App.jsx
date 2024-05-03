@@ -24,30 +24,35 @@ function App() {
   return (
     <>
       <div id='header'>
-        <nav id='socials'>
-          <a href='https://twitter.com/_BuQL_' style={{cursor: 'default'}}>
-            <img src='https://i.imgur.com/QhtSaWx.png' type='image/png' className='sociallogo' alt='Twitter' />
-          </a>
-          <a href='https://www.linkedin.com/company/buql/' style={{cursor: 'default'}}>
-            <img src='https://i.imgur.com/VHVUbE2.png' className='sociallogo whitefilter' alt='Linkedin' type='image/png'/>
-          </a>
-          <a
-            href='https://medium.com/@dylan.e.briar/looking-for-a-graphql-caching-solution-in-bun-its-time-to-buql-up-b2742f07847f'
-            style={{cursor: 'default'}}
-          >
-            <img src='https://i.imgur.com/XGJ3EYO.png' className='sociallogo whitefilter' alt='Medium' type='image/png'/>
-          </a>
-          <a href='https://github.com/oslabs-beta/BuQL' style={{cursor: 'default'}}>
-            <img src='https://i.imgur.com/3T0pAIC.png' className='sociallogo' alt='GitHub' type='image/png'/>
-          </a>
-        </nav>
-        <img className='logo' src='https://i.imgur.com/aAYWPCb.png'></img>
-        <h1 className='buql' onClick={() => setCurrentPage('home')} style={{cursor: 'default'}}>BuQL</h1>
-        <img className='logo' src='https://i.imgur.com/aAYWPCb.png'></img>
-        <nav id='pages'>
-          <button onClick={() => setCurrentPage('demo')} style={{cursor: 'default'}}>Demo</button>
-          <button onClick={() => setCurrentPage('about')} style={{cursor: 'default'}}>About Us</button>
-        </nav>
+        <div id='title'>
+          <img className='logo' src='https://i.imgur.com/aAYWPCb.png'></img>
+          <h1 className='buql' onClick={() => setCurrentPage('home')} style={{cursor: 'default'}}>BuQL</h1>
+          <img className='logo' src='https://i.imgur.com/aAYWPCb.png'></img>
+        </div>
+        <div id='navbar'>      
+          <nav id='socials'>
+            <a href='https://twitter.com/_BuQL_' style={{cursor: 'default'}}>
+              {/* <img src='https://i.imgur.com/QhtSaWx.png' type='image/png' className='sociallogoTwitGit' alt='Twitter' /> */}
+              <img src='https://i.imgur.com/nGg9o6L.png' className='sociallogo whitefilter' alt='X' type='image/png' />
+            </a>
+            <a href='https://www.linkedin.com/company/buql/' style={{cursor: 'default'}}>
+              <img src='https://i.imgur.com/VHVUbE2.png' className='sociallogo whitefilter' alt='Linkedin' type='image/png'/>
+            </a>
+            <a
+              href='https://medium.com/@dylan.e.briar/looking-for-a-graphql-caching-solution-in-bun-its-time-to-buql-up-b2742f07847f'
+              style={{cursor: 'default'}}
+            >
+              <img src='https://i.imgur.com/XGJ3EYO.png' className='sociallogo whitefilter' alt='Medium' type='image/png'/>
+            </a>
+            <a href='https://github.com/oslabs-beta/BuQL' style={{cursor: 'default'}}>
+              <img src='https://i.imgur.com/3T0pAIC.png' className='sociallogo gitlogo' alt='GitHub' type='image/png' />            
+            </a>
+          </nav>
+          <nav id='pages'>
+            <button onClick={() => setCurrentPage('demo')} style={{cursor: 'default'}}>Demo</button>
+            <button onClick={() => setCurrentPage('about')} style={{cursor: 'default'}}>About Us</button>
+          </nav>
+        </div>
       </div>
       <div id='page'>
         {renderPage()}
