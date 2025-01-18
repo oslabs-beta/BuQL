@@ -1,8 +1,7 @@
-//define the securityController object to add methods to; the object will be returned at the bottom of the file
-const security = {};
-//imports for validationRules (security)
-import {createComplexityLimitRule} from 'graphql-validation-complexity';
+// import {createComplexityLimitRule} from 'graphql-validation-complexity';
 import depthLimit from 'graphql-depth-limit';
+
+const security = {};
 
 //example query: "query { getAllUsers {id username password } hello }"
 
@@ -58,7 +57,6 @@ security.RulesCreator = (givenLimit = 10, costLimit = 1000, customRules) => {
     //combine defaultRules with the custom rules
     Object.assign(defaultRules, customRules);
   }
-  //console.log(givenLimit, costLimit, defaultRules)
   //return the costlimit and default rules
   return [depthLimit(givenLimit), costLimit, defaultRules];
 }
@@ -66,6 +64,4 @@ security.RulesCreator = (givenLimit = 10, costLimit = 1000, customRules) => {
       1. set this up as a ternary, checking if the user has called it or something (what i have right now)
       2. make sure the user pulls and invokes it, whether or not they use the options */
 
-//console.log(RulesCreator())
-//export the object built out in this file
 export default security;
