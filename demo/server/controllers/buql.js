@@ -1,4 +1,4 @@
-import redis from './redis';
+// import redis from './redis';
 import {handleQuery} from './helpers';
 
 const buql = {};
@@ -9,7 +9,7 @@ buql.cache = async (req, res, next) => {
   // check if query is a mutation
   if (query.includes('mutation')) {
     // send query to graphql route
-    const data = await fetch(`http://localhost:${Bun.env.PORT}/graphql`, {
+    const data = await fetch(`http://localhost:8080/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ buql.cache = async (req, res, next) => {
     });
 
     // clear the redis cache
-    await redis.flushdb();
+    // await redis.flushdb();
 
     // parse and return the response
     const parsed = await data.json();
@@ -36,7 +36,7 @@ buql.cache = async (req, res, next) => {
 
 buql.clearCache = async (req, res, next) => {
   // clear the cache
-  await redis.flushdb();
+  // await redis.flushdb();
   return next();
 };
 

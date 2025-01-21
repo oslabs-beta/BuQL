@@ -73,7 +73,7 @@ export const processRequest = async (input) => {
 
     // Fetching missing data from the server and update the cache
     const serverResponse = await fetch(
-      `http://localhost:${Bun.env.PORT}/graphql`,
+      `http://localhost:8080/graphql`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -180,7 +180,7 @@ export const handleQuery = async (query) => {
     const fullQuery = `query { ${type} ${args} { ${fields} } }`;
 
     const gqlResponse = await fetch(
-      `http://localhost:${Bun.env.PORT}/graphql`,
+      `http://localhost:8080/graphql`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -217,7 +217,7 @@ export const handleQuery = async (query) => {
       storage[key.field] = keyStr; // Store stringified key for later reference
     });
 
-    for (const [name, fields] of Object.entries(parsedResponse)) {
+    for (const [fields] of Object.entries(parsedResponse)) {
       for (const [field, fieldVal] of Object.entries(fields)) {
         const newKey = storage[field];
         queryObj[newKey] = fieldVal;
