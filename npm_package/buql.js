@@ -5,6 +5,7 @@ const buql = {};
 
 buql.cache = async (req, res, next) => {
   const {query} = req.body;
+  console.log(req.body);
 
   // check if query is a mutation
   if (query.includes('mutation')) {

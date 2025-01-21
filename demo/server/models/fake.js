@@ -26,8 +26,8 @@ export const addToDb = async (num) => {
   console.log(result);
 };
 
-const deleteAllFromDb = async () => {
-  // mongoose delete many
-  const result = await User.deleteMany({});
-  console.log(result);
-};
+// const deleteAllFromDb = async () => {
+//   // mongoose delete many
+//   const result = await User.deleteMany({});
+//   console.log(result);
+// };

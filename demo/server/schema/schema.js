@@ -3,9 +3,9 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
-  GraphQLNonNull,
+  // GraphQLNonNull,
   GraphQLList,
-  GraphQLID,
+  // GraphQLID,
 } from 'graphql';
 
 import mongoose from 'mongoose';
@@ -33,7 +33,7 @@ const RootQuery = new GraphQLObjectType({
     getAllUsers: {
       type: new GraphQLList(UserType),
       args: { id: { type: GraphQLString } },
-      async resolve(parent, args) {
+      async resolve() {
         const userList = await User.find({});
         return userList;
       },
@@ -59,7 +59,7 @@ const Mutation = new GraphQLObjectType({
       args: {
         num: { type: GraphQLInt },
       },
-      async resolve(parents, args, req) {
+      async resolve(parents, args) {
         await addToDb(args.num);
         const userList = await User.find({});
         return userList;
@@ -70,7 +70,7 @@ const Mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLString },
       },
-      async resolve(parents, args, req) {
+      async resolve(parents, args) {
         const userId = new mongoose.Types.ObjectId(args.id);
         const result = await User.findByIdAndDelete(userId);
         return result;

@@ -1,7 +1,7 @@
 // typical imports
 import express from 'express';
 const app = express();
-const port = Bun.env.PORT;
+const port = 8080;//Bun.env.PORT;
 
 // import graphql and schema
 import {graphqlHTTP} from 'express-graphql';
@@ -31,7 +31,7 @@ app.use(
 
 app.use('*', (req, res) => res.status(404).send('Page not found'));
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   const defaultErr = {
     log: 'Express error handler caught an unknown middlware error',
     status: 500,
